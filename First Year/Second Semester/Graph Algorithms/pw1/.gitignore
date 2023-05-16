@@ -1,0 +1,3 @@
+# Ignore text files.
+example.txt
+graph*.txt

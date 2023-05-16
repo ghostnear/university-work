@@ -1,0 +1,6 @@
+# Ignore Python artifacts
+__pycache__/
+
+# Ignore test coverage
+.coverage
+htmlcov/

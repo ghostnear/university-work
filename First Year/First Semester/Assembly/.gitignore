@@ -1,0 +1,5 @@
+# Ignore output files.
+*.obj
+*.exe
+*.pdb
+*.ilk

@@ -1,0 +1,4 @@
+# Ignore stuff.
+build/
+.cache/
+vgcore.*

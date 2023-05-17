@@ -40,11 +40,19 @@ SMIterator::SMIterator(const SortedMap& m) : map(m)
 	first();
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 void SMIterator::first()
 {
 	position = 0;
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 void SMIterator::next()
 {
 	if(!valid())
@@ -53,11 +61,31 @@ void SMIterator::next()
 	position++;
 }
 
-bool SMIterator::valid() const
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
+void SMIterator::previous()
 {
-	return position < map.size();
+	if(!valid())
+		throw std::exception();
+
+	position--;
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
+bool SMIterator::valid() const
+{
+	return position < map.size() && position >= 0;
+}
+
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 TElem SMIterator::getCurrent() const
 {
 	if(!valid())

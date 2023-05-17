@@ -16,6 +16,7 @@ private:
 public:
 	void first();
 	void next();
+	void previous();
 	bool valid() const;
     TElem getCurrent() const;
 

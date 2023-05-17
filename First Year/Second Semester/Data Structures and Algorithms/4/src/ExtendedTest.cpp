@@ -318,9 +318,38 @@ void testIterator() {
 	testIterator(decreasing);
 }
 
+void testBackwardsIteration()
+{
+	cout << "Test backwards iteration." << std::endl;
+	SortedMap sm(decreasing);
+	sm.add(3, 1);
+	sm.add(4, 5);
+	sm.add(6, 7);
+	SMIterator it  = sm.iterator();
+	assert(it.valid());
+	it.first();
+	assert(it.valid());
+	it.next();
+	assert(it.getCurrent() == TElem(4, 5));
+	it.previous();
+	assert(it.getCurrent() == TElem(6, 7));
+	it.previous();
+	assert(!it.valid());
+	try
+	{
+		it.previous();
+		assert(false);
+	}
+	catch(std::exception const&)
+	{
+		assert(true);
+	}
+}
+
 void testAllExtended()
 {
 	testCreate();
+	testBackwardsIteration();
 	testAdd();
 	testSearch();
 	testRemove();

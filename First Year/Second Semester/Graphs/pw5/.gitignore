@@ -1,0 +1,5 @@
+# Do not push input data.
+*.txt
+
+.vscode/
+__pycache__/

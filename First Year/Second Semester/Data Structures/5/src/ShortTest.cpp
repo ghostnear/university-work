@@ -7,7 +7,8 @@
 
 using namespace std;
 
-bool relation1(TKey cheie1, TKey cheie2) {
+bool relation1(TKey cheie1, TKey cheie2)
+{
 	if (cheie1 <= cheie2) {
 		return true;
 	}

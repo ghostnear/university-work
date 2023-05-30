@@ -2,6 +2,7 @@
 //DO NOT INCLUDE SMMITERATOR
 
 //DO NOT CHANGE THIS PART
+#include <iostream>
 #include <vector>
 #include <utility>
 typedef int TKey;
@@ -16,8 +17,22 @@ typedef bool(*Relation)(TKey, TKey);
 class SortedMultiMap
 {
 	friend class SMMIterator;
+
 private:
-    //TODO - Representation
+    int _size = 0;
+    struct TreeNode
+    {
+        TKey key;
+        std::vector<TValue> data;
+        TreeNode* left = nullptr;
+        TreeNode* right = nullptr;
+    }*_root = nullptr;
+
+    void free_tree(TreeNode* node);
+    void add_tree(TreeNode* &node, TKey c, TValue v);
+    TreeNode* search_tree(TreeNode* node, TKey c) const;
+
+    Relation _relation;
 
 public:
     // constructor
@@ -27,7 +42,7 @@ public:
     void add(TKey c, TValue v);
 
 	//returns the values belonging to a given key
-    vector<TValue> search(TKey c) const;
+    std::vector<TValue> search(TKey c) const;
 
 	//removes a key value pair from the sorted multimap
 	//returns true if the pair was removed (it was part of the multimap), false if nothing is removed

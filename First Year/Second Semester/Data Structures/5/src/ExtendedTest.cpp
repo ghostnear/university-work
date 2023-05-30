@@ -249,7 +249,8 @@ void testIterator() {
 	testIterator(desc);
 }
 
-void testAllExtended() {
+void testAllExtended()
+{
 	testCreate();
 	testSearch();
 	testRemove();

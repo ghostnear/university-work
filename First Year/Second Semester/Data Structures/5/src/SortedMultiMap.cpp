@@ -7,6 +7,57 @@
 
 using namespace std;
 
+DynamicArray::DynamicArray()
+{
+	_size = 0;
+	_capacity = 1;
+	_elements = new TValue[_capacity];
+}
+
+void DynamicArray::resize(int newCapacity)
+{
+	TValue* newElements = new TValue[newCapacity];
+	memcpy(newElements, _elements, _size * sizeof(TValue));
+	delete[] _elements;
+	_elements = newElements;
+	_capacity = newCapacity;
+}
+
+TValue& DynamicArray::operator[](int index)
+{
+	return _elements[index];
+}
+
+int DynamicArray::size()
+{
+	return _size;
+}
+
+void DynamicArray::push_back(TValue value)
+{
+	if(_size == _capacity)
+		resize(_capacity * 2);
+
+	_elements[_size++] = value;
+}
+
+void DynamicArray::pop_back()
+{
+	_size--;
+	if(_size * 4 <= _capacity)
+		resize(_capacity / 2);
+}
+
+int DynamicArray::capacity()
+{
+	return _capacity;
+}
+
+DynamicArray::~DynamicArray()
+{
+	delete[] _elements;
+}
+
 /*
  * Complexity:
  * 	Constant: Theta(1)
@@ -81,7 +132,10 @@ std::vector<TValue> SortedMultiMap::search(TKey c) const
 	if(result == nullptr)
 		return std::vector<TValue>();
 
-	return result->data;
+	std::vector<TValue> resultData;
+	for(int i = 0; i < result->data.size(); i++)
+		resultData.push_back(result->data[i]);
+	return resultData;
 }
 
 /*
@@ -94,10 +148,11 @@ bool SortedMultiMap::remove(TKey c, TValue v)
 	if(node == nullptr)
 		return false;
 
-	for(int i = 0; i < node->data.size(); i++)
-		if(node->data[i] == v)
+	for(int index = 0; index < node->data.size(); index++)
+		if(node->data[index] == v)
 		{
-			node->data.erase(node->data.begin() + i);
+			node->data[index] = node->data[node->data.size() - 1];
+			node->data.pop_back();
 			_size--;
 			return true;
 		}

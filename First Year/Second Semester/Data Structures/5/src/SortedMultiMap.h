@@ -14,6 +14,23 @@ using namespace std;
 class SMMIterator;
 typedef bool(*Relation)(TKey, TKey);
 
+class DynamicArray
+{
+private:
+    int _size, _capacity;
+    TValue* _elements;
+
+public:
+    DynamicArray();
+    ~DynamicArray();
+    int size();
+    int capacity();
+    void push_back(TValue value);
+    void resize(int newCapacity);
+    void pop_back();
+    TValue& operator[](int pos);
+};
+
 class SortedMultiMap
 {
 	friend class SMMIterator;
@@ -23,7 +40,7 @@ private:
     struct TreeNode
     {
         TKey key;
-        std::vector<TValue> data;
+        DynamicArray data;
         TreeNode* left = nullptr;
         TreeNode* right = nullptr;
     }*_root = nullptr;

@@ -65,6 +65,9 @@ public:
 	//returns true if the pair was removed (it was part of the multimap), false if nothing is removed
     bool remove(TKey c, TValue v);
 
+    // replaces all appearances of oldValue with newValue.
+    void replace(TKey k, TValue oldValue, TValue newValue);
+
     //returns the number of key-value pairs from the sorted multimap
     int size() const;
 

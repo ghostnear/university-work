@@ -23,11 +23,19 @@ void DynamicArray::resize(int newCapacity)
 	_capacity = newCapacity;
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 TValue& DynamicArray::operator[](int index)
 {
 	return _elements[index];
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 int DynamicArray::size()
 {
 	return _size;
@@ -48,11 +56,19 @@ void DynamicArray::pop_back()
 		resize(_capacity / 2);
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 int DynamicArray::capacity()
 {
 	return _capacity;
 }
 
+/*
+ * Complexity:
+ * 	Constant: Theta(1)
+ */
 DynamicArray::~DynamicArray()
 {
 	delete[] _elements;
@@ -106,8 +122,8 @@ void SortedMultiMap::add(TKey c, TValue v)
 /*
  * Complexity:
  * 	Best: Theta(1) when the key is in the root.
- * 	Worst: Theta(log2(n)) as log2(n) is the max depth of the tree.
- * 	Total: Theta(log2(n))
+ * 	Worst: Theta(h) as h is the depth of the tree.
+ * 	Total: Theta(h)
  */
 SortedMultiMap::TreeNode* SortedMultiMap::search_tree(TreeNode* node, TKey c) const
 {
@@ -120,6 +136,21 @@ SortedMultiMap::TreeNode* SortedMultiMap::search_tree(TreeNode* node, TKey c) co
 		return search_tree(node->right, c);
 	else
 		return search_tree(node->left, c);
+}
+
+/*
+ * Complexity:
+ * 	Same as search_tree.
+ */
+void SortedMultiMap::replace(TKey k, TValue oldValue, TValue newValue)
+{
+	TreeNode* result = search_tree(_root, k);
+	if(result == nullptr)
+		return;
+
+	for(int i = 0; i < result->data.size(); i++)
+		if(result->data[i] == oldValue)
+			result->data[i] = newValue;
 }
 
 /*
@@ -171,7 +202,7 @@ int SortedMultiMap::size() const
 
 /*
  * Complexity:
- * 	Constant: Theta(1)
+ * 	Same as size.
  */
 bool SortedMultiMap::isEmpty() const
 {
@@ -189,7 +220,7 @@ SMMIterator SortedMultiMap::iterator() const
 
 /*
  * Complexity:
- * 	Constant: Theta(log2(n))
+ * 	Constant: Theta(n)
  */
 void SortedMultiMap::free_tree(TreeNode* node)
 {

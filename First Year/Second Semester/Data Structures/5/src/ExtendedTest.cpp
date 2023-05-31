@@ -244,7 +244,40 @@ void testIterator(Relation r) {
 	}
 }
 
-void testIterator() {
+void testReplace()
+{
+	std::cout << "Test replace\n";
+	SortedMultiMap smm = SortedMultiMap(asc);
+	assert(smm.size() == 0);
+
+	smm.add(1, 3);
+	smm.add(2, 3);
+	smm.add(2, 3);
+
+	assert(smm.size() == 3);
+
+	smm.replace(2, 3, 4);
+	std::vector<TValue> result = smm.search(2);
+	for(auto x : result)
+		assert(x == 4);
+
+	smm.replace(1, 2, 4);
+	result = smm.search(1);
+	for(auto x : result)
+		assert(x == 3);
+
+	smm.replace(0, 5, 6);
+	result = smm.search(0);
+	assert(result.size() == 0);
+
+	for(int index = 0; index < 10; index++)
+		smm.add(1, 1);
+	smm.replace(1, 1, 9);
+	result = smm.search(1);
+}
+
+void testIterator()
+{
 	testIterator(asc);
 	testIterator(desc);
 }
@@ -253,6 +286,7 @@ void testAllExtended()
 {
 	testCreate();
 	testSearch();
+	testReplace();
 	testRemove();
 	testIterator();
 	testRelations();

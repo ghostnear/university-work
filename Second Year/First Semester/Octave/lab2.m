@@ -1,0 +1,16 @@
+pkg load statistics;
+clear all;
+clc;
+clf;
+n=input("What is the number of trials?\n");
+p=input("What is the probability?\n");
+k=0:n;
+hold on;
+px=binopdf(k, n, p);
+plot(k, px, 'ok');
+title("PDF and CDF");
+k=0:0.01:n;
+px=binocdf(k, n, p);
+plot(k, px, 'r');
+legend("PDF", "CDF");
+hold off;

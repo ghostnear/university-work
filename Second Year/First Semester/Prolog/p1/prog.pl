@@ -24,7 +24,7 @@ substitute([E|LT], N, M, [E|RT], E1, E2) :-
   substitute(LT, NewN, NewM, RT, E1, E2).
 
 % sublist(L-list, N-first position, M-second position, R-result list)
-% flow model: (i, i, i, o)
+% flow model: (i, i, i, io)
 sublist([], _, _, []).
 sublist(_, 1, 0, []).
 sublist([_ | T], N, M, R) :-    % Not using the head as it gets popped.

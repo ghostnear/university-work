@@ -3,6 +3,8 @@ package com.Ghost.Interpreter.View;
 import java.util.Scanner;
 
 import com.Ghost.Interpreter.Controller.*;
+import com.Ghost.Interpreter.Exceptions.InterpreterException;
+import com.Ghost.Interpreter.Exceptions.Stack.*;
 import com.Ghost.Interpreter.Repository.*;
 
 public class View {
@@ -22,8 +24,18 @@ public class View {
         this.programDB = newProgramDB;
     }
 
+    void run_program() throws StackOverflowException {
+        System.out.print("Input program (0.." + (programDB.size() - 1) + "): ");
+
+        Integer program = inputScanner.nextInt();
+
+        this.interpreter.reset_program_state();
+        this.interpreter.load_program(this.programDB.get(program));
+        this.interpreter.run_program(true);
+    }
+
     void view_program() {
-        System.out.print("Input program: ");
+        System.out.print("Input program (0.." + (programDB.size() - 1) + "): ");
 
         Integer program = inputScanner.nextInt();
 
@@ -40,21 +52,27 @@ public class View {
             System.out.println("2. View program");
             System.out.println("3. Exit");
             System.out.print("Option: ");
-            option = MainMenuOptions.values()[inputScanner.nextInt() - 1];
-
-            switch(option) {
-                case RUN_PROGRAM:
-                    System.out.println("Unimplemented yet...");
-                    break;
-                case VIEW_PROGRAM:
-                    view_program();
-                    break;
-                case EXIT:
-                    System.out.println("Exiting now...");
-                    break;
-                default:
-                    System.out.println("Invalid option!");
-                    break;
+            try {
+                option = MainMenuOptions.values()[inputScanner.nextInt() - 1];
+                switch(option) {
+                    case RUN_PROGRAM:
+                        run_program();
+                        break;
+                    case VIEW_PROGRAM:
+                        view_program();
+                        break;
+                    case EXIT:
+                        System.out.println("Exiting now...");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch(IndexOutOfBoundsException e) {
+                System.out.println(e);
+            }
+            catch(StackOverflowException e) {
+                System.out.println(e);
             }
         }
     }

@@ -20,6 +20,12 @@ public class ProgramState {
         this.output = newOutput;
     }
 
+    public void reset() {
+        this.executionStack.clear();
+        this.symbolTable.clear();
+        this.output.clear();
+    }
+
     public Stack<IStatement> getExecutionStack() {
         return this.executionStack;
     }

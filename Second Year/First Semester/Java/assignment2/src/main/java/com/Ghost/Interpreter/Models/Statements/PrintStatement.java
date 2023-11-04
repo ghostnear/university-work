@@ -1,13 +1,24 @@
 package com.Ghost.Interpreter.Models.Statements;
 
-import com.Ghost.Interpreter.Models.IExpression;
-import com.Ghost.Interpreter.Models.IStatement;
+import com.Ghost.Interpreter.Exceptions.InterpreterException;
+import com.Ghost.Interpreter.Exceptions.List.ListOverflowException;
+import com.Ghost.Interpreter.Models.*;
+import com.Ghost.Interpreter.Repository.ProgramState;
 
 public class PrintStatement implements IStatement {
     IExpression expression;
 
     public PrintStatement(IExpression expression) {
         this.expression = expression;
+    }
+
+    public void execute(ProgramState state) throws InterpreterException {
+        try {
+            state.getOutput().add(expression.evaluate(state));
+        }
+        catch(ListOverflowException e) {
+            System.out.println(e);
+        }
     }
 
     public String toString() {

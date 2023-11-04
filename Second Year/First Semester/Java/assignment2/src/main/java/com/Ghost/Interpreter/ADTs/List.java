@@ -15,6 +15,13 @@ public class List<TData> implements IList<TData> {
         this.elements = new ArrayList<TData>(this.capacity);
     }
 
+    public String toString() {
+        String result = "";
+        for(TData element : this.elements)
+            result += element.toString() + "\n";
+        return result;
+    }
+
     public void add(TData newElement) throws ListOverflowException {
         if(this.size >= this.capacity)
             throw new ListOverflowException();
@@ -39,6 +46,11 @@ public class List<TData> implements IList<TData> {
             throw new ListIndexOutOfBoundsException();
         this.elements.remove(index);
         this.size--;
+    }
+
+    public void clear() {
+        this.elements.clear();
+        this.size = 0;
     }
 
     public Integer size() {

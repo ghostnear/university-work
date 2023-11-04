@@ -9,6 +9,10 @@ public class IntegerValue implements IValue {
         this.value = newValue;
     }
 
+    public Integer get() {
+        return value;
+    }
+
     public String toString() {
         return value.toString();
     }

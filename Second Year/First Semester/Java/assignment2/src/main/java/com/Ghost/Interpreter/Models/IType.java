@@ -1,5 +1,5 @@
 package com.Ghost.Interpreter.Models;
 
-public interface IType
-{
-};
+public interface IType {
+    IValue defaultValue();
+}

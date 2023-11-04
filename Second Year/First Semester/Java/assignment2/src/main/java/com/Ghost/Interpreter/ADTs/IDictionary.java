@@ -1,11 +1,12 @@
 package com.Ghost.Interpreter.ADTs;
 
 public interface IDictionary<TKey, TData> {
-    public void set(TKey key, TData value);
-    public TData get(TKey key);
-    public Boolean has(TKey key);
-    public void remove(TKey key);
-    public String toString();
-    public Integer size();
-    public Boolean isEmpty();
+    void set(TKey key, TData value);
+    TData get(TKey key);
+    Boolean has(TKey key);
+    void remove(TKey key);
+    String toString();
+    Integer size();
+    Boolean isEmpty();
+    void clear();
 }

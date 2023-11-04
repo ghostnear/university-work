@@ -51,12 +51,12 @@ public class HardcodedProgramDB {
                         new AssignStatement(
                             "a",
                             new ArithmeticExpression(
-                                '+',
+                                "+",
                                 new ValueExpression(
                                     new IntegerValue(2)
                                 ),
                                 new ArithmeticExpression(
-                                    '*',
+                                    "*",
                                     new ValueExpression(
                                         new IntegerValue(3)
                                     ),
@@ -70,7 +70,7 @@ public class HardcodedProgramDB {
                             new AssignStatement(
                                 "b",
                                 new ArithmeticExpression(
-                                    '+',
+                                    "+",
                                     new VariableExpression("a"),
                                     new ValueExpression(
                                         new IntegerValue(1)
@@ -115,6 +115,28 @@ public class HardcodedProgramDB {
                             )
                         ),
                         new PrintStatement(new VariableExpression("v")))
+                    )
+                )
+            )
+        );
+
+        // Bonus example with NOPs
+        statements.add(
+            new CompositeStatement(
+                new NOPStatement(),
+                new CompositeStatement(
+                    new VariableDeclareStatement(
+                        "d", 
+                        new BooleanType()
+                    ),
+                    new IfStatement(
+                        new ArithmeticExpression(
+                            "==",
+                            new VariableExpression("d"),
+                            new ValueExpression(new BooleanValue(true))
+                        ),
+                        new PrintStatement(new ValueExpression(new IntegerValue(7))),
+                        null
                     )
                 )
             )

@@ -9,6 +9,10 @@ public class BooleanValue implements IValue {
         this.value = newValue;
     }
 
+    public Boolean get() {
+        return value;
+    }
+
     public String toString() {
         return value.toString();
     }

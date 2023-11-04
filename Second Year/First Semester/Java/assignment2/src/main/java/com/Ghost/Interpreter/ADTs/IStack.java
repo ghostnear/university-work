@@ -8,4 +8,5 @@ public interface IStack<TData> {
     Integer size();
     boolean isEmpty();
     String toString();
+    void clear();
 }

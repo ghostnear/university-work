@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Dictionary<TKey, TData> implements IDictionary<TKey, TData> {
     Integer size;
-    HashMap<TKey, TData> elements;
+    HashMap<TKey, TData> elements = new HashMap<TKey, TData>();
 
     public void set(TKey key, TData value)
     {
@@ -25,6 +25,12 @@ public class Dictionary<TKey, TData> implements IDictionary<TKey, TData> {
     public void remove(TKey key)
     {
         this.elements.remove(key);
+        this.size = this.elements.size();
+    }
+
+    public void clear()
+    {
+        this.elements.clear();
         this.size = this.elements.size();
     }
 

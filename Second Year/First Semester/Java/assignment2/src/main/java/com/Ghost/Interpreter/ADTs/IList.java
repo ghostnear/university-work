@@ -3,11 +3,12 @@ package com.Ghost.Interpreter.ADTs;
 import com.Ghost.Interpreter.Exceptions.List.*;
 
 public interface IList<TData> {
-    public void add(TData newElement) throws ListOverflowException;
-    public TData get(Integer index) throws ListIndexOutOfBoundsException;
-    public void set(Integer index, TData newElement) throws ListIndexOutOfBoundsException;
-    public void remove(Integer index) throws ListIndexOutOfBoundsException;
-    public Integer size();
-    public Boolean isEmpty();
-    public String toString();
+    void add(TData newElement) throws ListOverflowException;
+    TData get(Integer index) throws ListIndexOutOfBoundsException;
+    void set(Integer index, TData newElement) throws ListIndexOutOfBoundsException;
+    void remove(Integer index) throws ListIndexOutOfBoundsException;
+    Integer size();
+    Boolean isEmpty();
+    String toString();
+    void clear();
 }

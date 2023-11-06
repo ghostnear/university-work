@@ -48,8 +48,7 @@ public class Stack<TData> implements IStack<TData> {
         this.size++;
     }
 
-    public void clear()
-    {
+    public void clear() {
         this.elements.clear();
         this.size = 0;
     }

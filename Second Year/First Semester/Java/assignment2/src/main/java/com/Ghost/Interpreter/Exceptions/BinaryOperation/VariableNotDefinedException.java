@@ -1,4 +1,4 @@
-package com.Ghost.Interpreter.Exceptions.Arithmetic;
+package com.Ghost.Interpreter.Exceptions.BinaryOperation;
 
 import com.Ghost.Interpreter.Exceptions.*;
 

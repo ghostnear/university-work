@@ -1,7 +1,7 @@
 package com.Ghost.Interpreter.Models.Expressions;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
-import com.Ghost.Interpreter.Exceptions.Arithmetic.*;
+import com.Ghost.Interpreter.Exceptions.BinaryOperation.*;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Models.Values.BooleanValue;
 import com.Ghost.Interpreter.Models.Values.IntegerValue;

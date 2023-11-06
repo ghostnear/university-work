@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import com.Ghost.Interpreter.Controller.*;
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
-import com.Ghost.Interpreter.Exceptions.Stack.*;
 import com.Ghost.Interpreter.Repository.*;
 
 public class View {
@@ -24,7 +23,7 @@ public class View {
         this.programDB = newProgramDB;
     }
 
-    void run_program() throws StackOverflowException {
+    void run_program() throws InterpreterException {
         System.out.print("Input program (0.." + (programDB.size() - 1) + "): ");
 
         Integer program = inputScanner.nextInt();
@@ -68,10 +67,7 @@ public class View {
                         break;
                 }
             }
-            catch(IndexOutOfBoundsException e) {
-                System.out.println(e);
-            }
-            catch(StackOverflowException e) {
+            catch(InterpreterException e) {
                 System.out.println(e);
             }
         }

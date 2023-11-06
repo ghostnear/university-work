@@ -7,12 +7,12 @@ import com.Ghost.Interpreter.Models.Values.BooleanValue;
 import com.Ghost.Interpreter.Models.Values.IntegerValue;
 import com.Ghost.Interpreter.Repository.ProgramState;
 
-public class ArithmeticExpression implements IExpression {
+public class BinaryExpression implements IExpression {
     String operator;
     IExpression left;
     IExpression right;
 
-    public ArithmeticExpression(String newOperator, IExpression newLeft, IExpression newRight) {
+    public BinaryExpression(String newOperator, IExpression newLeft, IExpression newRight) {
         this.operator = newOperator;
         this.left = newLeft;
         this.right = newRight;

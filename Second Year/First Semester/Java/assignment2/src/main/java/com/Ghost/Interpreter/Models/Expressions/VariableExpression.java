@@ -1,7 +1,7 @@
 package com.Ghost.Interpreter.Models.Expressions;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
-import com.Ghost.Interpreter.Exceptions.BinaryOperation.VariableNotDefinedException;
+import com.Ghost.Interpreter.Exceptions.Expressions.VariableNotDefinedException;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Repository.ProgramState;
 

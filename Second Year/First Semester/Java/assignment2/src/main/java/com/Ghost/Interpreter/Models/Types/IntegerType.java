@@ -5,8 +5,8 @@ import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Models.Values.IntegerValue;
 
 public class IntegerType implements IType {
-    public IntegerType() {
-
+    public boolean equals(Object another) {
+        return another instanceof IntegerType;
     }
 
     public IValue defaultValue() {

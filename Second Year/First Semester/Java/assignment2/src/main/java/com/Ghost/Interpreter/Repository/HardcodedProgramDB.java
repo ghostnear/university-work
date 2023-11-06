@@ -50,12 +50,12 @@ public class HardcodedProgramDB {
                     new CompositeStatement(
                         new AssignStatement(
                             "a",
-                            new BinaryExpression(
+                            new ArithmeticExpression(
                                 "+",
                                 new ValueExpression(
                                     new IntegerValue(2)
                                 ),
-                                new BinaryExpression(
+                                new ArithmeticExpression(
                                     "*",
                                     new ValueExpression(
                                         new IntegerValue(3)
@@ -69,7 +69,7 @@ public class HardcodedProgramDB {
                         new CompositeStatement(
                             new AssignStatement(
                                 "b",
-                                new BinaryExpression(
+                                new ArithmeticExpression(
                                     "+",
                                     new VariableExpression("a"),
                                     new ValueExpression(
@@ -130,7 +130,7 @@ public class HardcodedProgramDB {
                         new BooleanType()
                     ),
                     new IfStatement(
-                        new BinaryExpression(
+                        new LogicExpression(
                             "==",
                             new VariableExpression("d"),
                             new ValueExpression(new BooleanValue(true))

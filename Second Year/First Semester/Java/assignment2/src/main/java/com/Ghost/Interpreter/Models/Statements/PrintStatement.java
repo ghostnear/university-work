@@ -2,6 +2,7 @@ package com.Ghost.Interpreter.Models.Statements;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
 import com.Ghost.Interpreter.Exceptions.List.ListOverflowException;
+import com.Ghost.Interpreter.Exceptions.Statements.UnableToPrintException;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Repository.ProgramState;
 
@@ -17,7 +18,7 @@ public class PrintStatement implements IStatement {
             state.getOutput().add(expression.evaluate(state));
         }
         catch(ListOverflowException e) {
-            System.out.println(e);
+            throw new UnableToPrintException();
         }
     }
 

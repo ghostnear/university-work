@@ -1,5 +1,7 @@
 package com.Ghost.Interpreter.Models.Statements;
 
+import com.Ghost.Interpreter.Exceptions.InterpreterException;
+import com.Ghost.Interpreter.Exceptions.Statements.VariableAlreadyDefinedException;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Repository.ProgramState;
 
@@ -12,7 +14,10 @@ public class VariableDeclareStatement implements IStatement {
         this.type = type;
     }
 
-    public void execute(ProgramState state) {
+    public void execute(ProgramState state) throws InterpreterException {
+        if(state.getSymbolTable().has(this.name))
+            throw new VariableAlreadyDefinedException();
+        
         state.getSymbolTable().set(this.name, this.type.defaultValue());
     }
 

@@ -4,6 +4,10 @@ import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Models.Values.BooleanValue;
 
 public class BooleanType implements IType {
+    public boolean equals(Object another) {
+        return another instanceof BooleanType;
+    }
+
     public IValue defaultValue() {
         return new BooleanValue(false);
     }

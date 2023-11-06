@@ -1,6 +1,7 @@
 package com.Ghost.Interpreter.Models.Statements;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
+import com.Ghost.Interpreter.Exceptions.Statements.NotBooleanValueException;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Models.Values.BooleanValue;
 import com.Ghost.Interpreter.Repository.ProgramState;
@@ -19,16 +20,15 @@ public class IfStatement implements IStatement {
 
     public void execute(ProgramState state) throws InterpreterException {
         IValue conditionValue = this.condition.evaluate(state);
-        if(conditionValue instanceof BooleanValue) {
-            if(((BooleanValue)conditionValue).get()) {
-                this.action.execute(state);
-            }
-            else if(this.elseAction != null) {
-                this.elseAction.execute(state);
-            }
+        if(!(conditionValue instanceof BooleanValue)) {
+            throw new NotBooleanValueException();
         }
-        else {
-            System.out.println("Condition is not a boolean value");
+
+        if(((BooleanValue)conditionValue).get()) {
+            this.action.execute(state);
+        }
+        else if(this.elseAction != null) {
+            this.elseAction.execute(state);
         }
     }
 

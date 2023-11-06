@@ -1,6 +1,7 @@
 package com.Ghost.Interpreter.Models.Statements;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
+import com.Ghost.Interpreter.Exceptions.Expressions.*;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Repository.ProgramState;
 
@@ -14,6 +15,12 @@ public class AssignStatement implements IStatement {
     }
 
     public void execute(ProgramState state) throws InterpreterException {
+        if(!state.getSymbolTable().has(this.name))
+            throw new VariableUndefinedException();
+
+        if(!(state.getSymbolTable().get(this.name).getType().equals(this.expression.evaluate(state).getType())))
+            throw new TypeMismatchException();
+
         state.getSymbolTable().set(this.name, this.expression.evaluate(state));
     }
 

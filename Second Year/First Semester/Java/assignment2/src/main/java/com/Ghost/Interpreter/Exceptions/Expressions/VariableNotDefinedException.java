@@ -1,4 +1,4 @@
-package com.Ghost.Interpreter.Exceptions.BinaryOperation;
+package com.Ghost.Interpreter.Exceptions.Expressions;
 
 import com.Ghost.Interpreter.Exceptions.*;
 

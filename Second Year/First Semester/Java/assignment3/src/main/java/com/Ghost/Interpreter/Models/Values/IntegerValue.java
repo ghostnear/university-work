@@ -18,6 +18,10 @@ public class IntegerValue implements IValue {
         return value;
     }
 
+    public boolean equal(Object other) {
+        return other instanceof IntegerValue && ((IntegerValue)other).get() == value;
+    }
+
     public String toString() {
         return value.toString();
     }

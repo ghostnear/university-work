@@ -130,11 +130,7 @@ public class HardcodedProgramDB {
                         new BooleanType()
                     ),
                     new IfStatement(
-                        new LogicExpression(
-                            "==",
-                            new VariableExpression("d"),
-                            new ValueExpression(new BooleanValue(true))
-                        ),
+                        new VariableExpression("d"),
                         new PrintStatement(new ValueExpression(new IntegerValue(7))),
                         null
                     )

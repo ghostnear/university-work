@@ -15,6 +15,12 @@ public class Stack<TData> implements IStack<TData> {
         this.elements = new ArrayList<TData>(this.capacity);
     }
 
+    public TData top() throws EmptyStackException {
+        if(this.size == 0)
+            throw new EmptyStackException();
+        return this.elements.get(this.size - 1);
+    }
+
     public TData pop() throws EmptyStackException {
         if(this.size == 0)
             throw new EmptyStackException();
@@ -35,9 +41,11 @@ public class Stack<TData> implements IStack<TData> {
 
     public String toString() {
         String result = "";
-        for(TData element : this.elements) {
-            result += element.toString() + "\n";
+        for(int index = this.size - 1; index >= 0; index--) {
+            result += this.elements.get(index).toString() + "\n";
         }
+        if(result == "")
+            result = "<empty>\n";
         return result;
     }
 

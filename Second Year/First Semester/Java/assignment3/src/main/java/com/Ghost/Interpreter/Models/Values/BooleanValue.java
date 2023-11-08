@@ -14,6 +14,10 @@ public class BooleanValue implements IValue {
         return new BooleanType();
     }
 
+    public boolean equal(Object other) {
+        return other instanceof BooleanValue && ((BooleanValue)other).get() == value;
+    }
+
     public Boolean get() {
         return value;
     }

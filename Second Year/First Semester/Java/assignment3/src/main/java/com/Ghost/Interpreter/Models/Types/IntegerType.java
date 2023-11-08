@@ -5,7 +5,7 @@ import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Models.Values.IntegerValue;
 
 public class IntegerType implements IType {
-    public boolean equals(Object another) {
+    public boolean equal(Object another) {
         return another instanceof IntegerType;
     }
 

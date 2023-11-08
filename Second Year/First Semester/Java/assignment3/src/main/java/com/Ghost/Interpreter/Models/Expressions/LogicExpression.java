@@ -33,9 +33,6 @@ public class LogicExpression implements IExpression {
                 case "||":
                     result = leftValue || rightValue;
                     break;
-                case "==":
-                    result = leftValue == rightValue;
-                    break;
                 default:
                     throw new InvalidOperatorException();
             }

@@ -18,7 +18,7 @@ public class AssignStatement implements IStatement {
         if(!state.getSymbolTable().has(this.name))
             throw new VariableUndefinedException();
 
-        if(!(state.getSymbolTable().get(this.name).getType().equals(this.expression.evaluate(state).getType())))
+        if(!(state.getSymbolTable().get(this.name).getType().equal(this.expression.evaluate(state).getType())))
             throw new TypeMismatchException();
 
         state.getSymbolTable().set(this.name, this.expression.evaluate(state));

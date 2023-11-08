@@ -19,6 +19,8 @@ public class List<TData> implements IList<TData> {
         String result = "";
         for(TData element : this.elements)
             result += element.toString() + "\n";
+        if(result == "")
+            result = "<empty>\n";
         return result;
     }
 

@@ -3,6 +3,7 @@ build:
 	@echo "Project built."
 
 clean:
+	@rm -rf log.txt
 	@rm -rf target
 	@echo "Project cleaned."
 

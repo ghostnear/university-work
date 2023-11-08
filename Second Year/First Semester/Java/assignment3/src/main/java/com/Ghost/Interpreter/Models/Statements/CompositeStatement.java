@@ -14,8 +14,8 @@ public class CompositeStatement implements IStatement {
 
     public void execute(ProgramState state) {
         try {
-            state.getExecutionStack().push(next);
-            state.getExecutionStack().push(current);
+            state.get_execution_stack().push(next);
+            state.get_execution_stack().push(current);
         }
         catch(StackOverflowException e) {
             System.out.println(e);

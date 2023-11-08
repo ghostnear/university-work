@@ -3,53 +3,47 @@ package com.Ghost.Interpreter.Controller;
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
 import com.Ghost.Interpreter.Exceptions.Stack.*;
 import com.Ghost.Interpreter.Models.*;
+import com.Ghost.Interpreter.Models.Statements.CompositeStatement;
 import com.Ghost.Interpreter.Repository.*;
 
 public class Interpreter {
     ProgramState programState;
+
+    void log_current_program_status(Boolean trace) {
+        try {
+            if(trace && !(this.programState.get_execution_stack().size() != 0 && this.programState.get_execution_stack().top() instanceof CompositeStatement))
+                this.programState.log("./log.txt");
+        }
+        catch(InterpreterException e) {
+            System.out.println("An error occured while logging the program:\n" + e);
+        }
+    }
 
     public void reset_program_state() {
         this.programState.reset();
     }
 
     public void load_program(IStatement program) throws StackOverflowException {
-        this.programState.getExecutionStack().push(program);
+        this.programState.get_execution_stack().push(program);
+        this.programState.start();
     }
 
     public void step_program(Boolean trace) throws InterpreterException {
-        IStatement currentStatement = this.programState.getExecutionStack().pop();
-        if(trace) {
-            System.out.println("====================================");
-            System.out.println("Current statement:");
-            System.out.println(currentStatement);
-            System.out.println("Execution stack:");
-            System.out.println(programState.getExecutionStack());
-            System.out.println("Symbol table:");
-            System.out.println(programState.getSymbolTable());
-            System.out.println("Output:");
-            System.out.println(programState.getOutput());
-        }
+        IStatement currentStatement = this.programState.get_execution_stack().pop();
         currentStatement.execute(this.programState);
+        log_current_program_status(trace);
     }
 
     public void run_program(Boolean trace) {
-        while(!this.programState.getExecutionStack().isEmpty()) {
+        log_current_program_status(trace);
+        while(this.programState.is_running() && !this.programState.get_execution_stack().isEmpty())
             try {
                 step_program(trace);
             }
             catch(InterpreterException e) {
-                System.out.println(e);
+                System.out.println("An error occured while executing the program:\n" + e);
+                this.programState.stop();
             }
-        }
-        if(trace) {
-            System.out.println("====================================");
-            System.out.println("Final execution stack:");
-            System.out.println(this.programState.getExecutionStack());
-            System.out.println("Final symbol table:");
-            System.out.println(this.programState.getSymbolTable());
-            System.out.println("Final output:");
-            System.out.println(this.programState.getOutput());
-        }
     }
 
     public Interpreter(ProgramState newProgramState) {

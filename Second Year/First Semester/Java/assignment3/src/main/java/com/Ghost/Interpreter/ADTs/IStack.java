@@ -7,7 +7,7 @@ public interface IStack<TData> {
     TData pop() throws EmptyStackException;
     TData top() throws EmptyStackException;
     Integer size();
-    boolean isEmpty();
+    boolean is_empty();
     String toString();
     void clear();
 }

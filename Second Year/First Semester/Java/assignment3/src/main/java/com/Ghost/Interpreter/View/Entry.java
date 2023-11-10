@@ -5,9 +5,9 @@ import com.Ghost.Interpreter.Repository.*;
 
 public class Entry {
     public static void main(String[] args) {
-        ProgramState programState = new ProgramState();
-        Interpreter interpreter = new Interpreter(programState);
-        View view = new View(interpreter, new HardcodedProgramDB());
-        view.run();
+        // The main method in Lab5.pdf is an abomination that should be banished from this existence.
+        Interpreter interpreter = new Interpreter(new ProgramState());
+        TextView view = new TextView(interpreter, new HardcodedProgramDB());
+        view.show();
     }
 }

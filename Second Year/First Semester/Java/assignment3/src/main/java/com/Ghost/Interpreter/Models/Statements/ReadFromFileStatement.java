@@ -23,11 +23,11 @@ public class ReadFromFileStatement implements IStatement {
         if(!state.getSymbolTable().has(this.variableID))
             throw new VariableUndefinedException();
 
-        if(!(state.getSymbolTable().get(this.variableID).getType() instanceof IntegerType))
+        if(!(state.getSymbolTable().get(this.variableID).get_type() instanceof IntegerType))
             throw new InvalidTypeException();
 
         IValue value = this.expression.evaluate(state);
-        if(!(value.getType() instanceof StringType))
+        if(!(value.get_type() instanceof StringType))
             throw new InvalidTypeException();
 
         String name = ((StringValue)value).get();

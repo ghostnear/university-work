@@ -35,7 +35,7 @@ public class Stack<TData> implements IStack<TData> {
         return this.size;
     }
 
-    public boolean isEmpty() {
+    public boolean is_empty() {
         return this.size == 0;
     }
 

@@ -42,7 +42,7 @@ public class Dictionary<TKey, TData> implements IDictionary<TKey, TData> {
         return this.size;
     }
 
-    public Boolean isEmpty() {
+    public Boolean is_empty() {
         return this.size == 0;
     }
 }

@@ -18,7 +18,7 @@ public class OpenReadFileStatement implements IStatement {
 
     public void execute(ProgramState state) throws InterpreterException {
         IValue value = this.expression.evaluate(state);
-        if(!(value.getType() instanceof StringType))
+        if(!(value.get_type() instanceof StringType))
             throw new InvalidTypeException();
 
         String name = ((StringValue)value).get();

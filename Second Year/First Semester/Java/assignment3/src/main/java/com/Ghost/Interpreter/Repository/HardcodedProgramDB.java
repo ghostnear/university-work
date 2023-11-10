@@ -132,31 +132,22 @@ public class HardcodedProgramDB {
                     new CompositeStatement(
                         new OpenReadFileStatement(new VariableExpression("varf")),
                         new CompositeStatement(
-                            new VariableDeclareStatement(
-                                "varc",
-                                new IntegerType()
-                            ),
+                            new VariableDeclareStatement("varc", new IntegerType()),
                             new CompositeStatement(
                                 new ReadFromFileStatement(
                                     new VariableExpression("varf"),
                                     "varc"
                                 ),
                                 new CompositeStatement(
-                                    new PrintStatement(
-                                        new VariableExpression("varc")
-                                    ),
+                                    new PrintStatement(new VariableExpression("varc")),
                                     new CompositeStatement(
                                         new ReadFromFileStatement(
                                             new VariableExpression("varf"),
                                             "varc"
                                         ),
                                         new CompositeStatement(
-                                            new PrintStatement(
-                                                new VariableExpression("varc")
-                                            ),
-                                            new CloseReadFileStatement(
-                                                new VariableExpression("varf")
-                                            )
+                                            new PrintStatement(new VariableExpression("varc")),
+                                            new CloseReadFileStatement(new VariableExpression("varf"))
                                         )
                                     )
                                 )

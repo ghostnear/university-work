@@ -9,7 +9,7 @@ public class IntegerType implements IType {
         return another instanceof IntegerType;
     }
 
-    public IValue defaultValue() {
+    public IValue default_value() {
         return new IntegerValue(0);
     }
 

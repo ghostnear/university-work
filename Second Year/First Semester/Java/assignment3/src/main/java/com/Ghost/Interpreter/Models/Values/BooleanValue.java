@@ -10,7 +10,7 @@ public class BooleanValue implements IValue {
         this.value = newValue;
     }
 
-    public IType getType() {
+    public IType get_type() {
         return new BooleanType();
     }
 

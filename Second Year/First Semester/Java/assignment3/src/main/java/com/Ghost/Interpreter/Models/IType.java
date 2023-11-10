@@ -1,6 +1,6 @@
 package com.Ghost.Interpreter.Models;
 
 public interface IType {
-    IValue defaultValue();
+    IValue default_value();
     boolean equal(Object other);
 }

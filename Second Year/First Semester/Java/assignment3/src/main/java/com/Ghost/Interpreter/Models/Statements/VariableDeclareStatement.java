@@ -18,7 +18,7 @@ public class VariableDeclareStatement implements IStatement {
         if(state.getSymbolTable().has(this.name))
             throw new VariableAlreadyDefinedException();
         
-        state.getSymbolTable().set(this.name, this.type.defaultValue());
+        state.getSymbolTable().set(this.name, this.type.default_value());
     }
 
     public String toString() {

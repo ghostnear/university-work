@@ -59,7 +59,7 @@ public class List<TData> implements IList<TData> {
         return this.size;
     }
 
-    public Boolean isEmpty() {
+    public Boolean is_empty() {
         return this.size == 0;
     }
 }

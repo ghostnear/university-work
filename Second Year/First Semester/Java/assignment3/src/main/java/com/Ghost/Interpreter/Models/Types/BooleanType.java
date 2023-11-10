@@ -8,7 +8,7 @@ public class BooleanType implements IType {
         return another instanceof BooleanType;
     }
 
-    public IValue defaultValue() {
+    public IValue default_value() {
         return new BooleanValue(false);
     }
 

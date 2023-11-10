@@ -7,6 +7,6 @@ public interface IDictionary<TKey, TData> {
     void remove(TKey key);
     String toString();
     Integer size();
-    Boolean isEmpty();
+    Boolean is_empty();
     void clear();
 }

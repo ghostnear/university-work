@@ -8,11 +8,12 @@ import com.Ghost.Interpreter.Repository.*;
 
 public class Interpreter {
     ProgramState programState;
+    String logFile;
 
-    void log_current_program_status(Boolean trace) {
+    void log_current_program_status() {
         try {
-            if(trace && !(this.programState.get_execution_stack().size() != 0 && this.programState.get_execution_stack().top() instanceof CompositeStatement))
-                this.programState.log("./log.txt");
+            if(this.logFile != null && !(this.programState.get_execution_stack().size() != 0 && this.programState.get_execution_stack().top() instanceof CompositeStatement))
+                this.programState.log(this.logFile);
         }
         catch(InterpreterException e) {
             System.out.println("An error occured while logging the program:\n" + e);
@@ -28,25 +29,37 @@ public class Interpreter {
         this.programState.start();
     }
 
-    public void step_program(Boolean trace) throws InterpreterException {
+    public void step_program() throws InterpreterException {
         IStatement currentStatement = this.programState.get_execution_stack().pop();
         currentStatement.execute(this.programState);
-        log_current_program_status(trace);
+        log_current_program_status();
     }
 
-    public void run_program(Boolean trace) {
-        log_current_program_status(trace);
-        while(this.programState.is_running() && !this.programState.get_execution_stack().isEmpty())
-            try {
-                step_program(trace);
-            }
-            catch(InterpreterException e) {
-                System.out.println("An error occured while executing the program:\n" + e);
-                this.programState.stop();
-            }
+    public void run_program() throws InterpreterException {
+        log_current_program_status();
+        while(this.programState.is_running() && !this.programState.get_execution_stack().is_empty())
+            step_program();
+    }
+
+    public void stop() {
+        this.programState.stop();
+    }
+
+    public void set_log_file(String newLogFile) {
+        this.logFile = newLogFile;
+    }
+
+    public String get_output() {
+        return this.programState.get_output().toString();
     }
 
     public Interpreter(ProgramState newProgramState) {
         this.programState = newProgramState;
+        this.logFile = null;
+    }
+
+    public Interpreter(ProgramState newProgramState, String logFile) {
+        this.programState = newProgramState;
+        this.logFile = logFile;
     }
 }

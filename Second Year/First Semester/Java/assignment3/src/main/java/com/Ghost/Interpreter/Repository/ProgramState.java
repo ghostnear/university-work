@@ -55,6 +55,10 @@ public class ProgramState {
         }
     }
 
+    public String get_output() {
+        return this.output.toString();
+    }
+
     public void start() {
         running = true;
     }

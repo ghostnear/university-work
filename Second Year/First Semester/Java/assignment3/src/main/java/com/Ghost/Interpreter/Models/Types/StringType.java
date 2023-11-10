@@ -8,7 +8,7 @@ public class StringType implements IType {
         return another instanceof StringType;
     }
 
-    public IValue defaultValue() {
+    public IValue default_value() {
         return new StringValue("");
     }
 

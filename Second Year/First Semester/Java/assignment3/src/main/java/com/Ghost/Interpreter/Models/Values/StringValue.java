@@ -10,7 +10,7 @@ public class StringValue implements IValue {
         this.value = newValue;
     }
 
-    public IType getType() {
+    public IType get_type() {
         return new StringType();
     }
 

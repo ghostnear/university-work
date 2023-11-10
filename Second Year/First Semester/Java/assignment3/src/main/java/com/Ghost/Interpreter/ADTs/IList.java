@@ -8,7 +8,7 @@ public interface IList<TData> {
     void set(Integer index, TData newElement) throws ListIndexOutOfBoundsException;
     void remove(Integer index) throws ListIndexOutOfBoundsException;
     Integer size();
-    Boolean isEmpty();
+    Boolean is_empty();
     String toString();
     void clear();
 }

@@ -120,19 +120,48 @@ public class HardcodedProgramDB {
             )
         );
 
-        // Bonus example with NOPs
+        // File example from Lab5.pdf
         statements.add(
             new CompositeStatement(
-                new NOPStatement(),
+                new VariableDeclareStatement("varf", new StringType()),
                 new CompositeStatement(
-                    new VariableDeclareStatement(
-                        "d", 
-                        new BooleanType()
+                    new AssignStatement(
+                        "varf",
+                        new ValueExpression(new StringValue("test.in")) 
                     ),
-                    new IfStatement(
-                        new VariableExpression("d"),
-                        new PrintStatement(new ValueExpression(new IntegerValue(7))),
-                        null
+                    new CompositeStatement(
+                        new OpenReadFileStatement(new VariableExpression("varf")),
+                        new CompositeStatement(
+                            new VariableDeclareStatement(
+                                "varc",
+                                new IntegerType()
+                            ),
+                            new CompositeStatement(
+                                new ReadFromFileStatement(
+                                    new VariableExpression("varf"),
+                                    "varc"
+                                ),
+                                new CompositeStatement(
+                                    new PrintStatement(
+                                        new VariableExpression("varc")
+                                    ),
+                                    new CompositeStatement(
+                                        new ReadFromFileStatement(
+                                            new VariableExpression("varf"),
+                                            "varc"
+                                        ),
+                                        new CompositeStatement(
+                                            new PrintStatement(
+                                                new VariableExpression("varc")
+                                            ),
+                                            new CloseReadFileStatement(
+                                                new VariableExpression("varf")
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
                     )
                 )
             )

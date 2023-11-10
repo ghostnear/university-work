@@ -1,7 +1,7 @@
 package com.Ghost.Interpreter.Models.Expressions;
 
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
-import com.Ghost.Interpreter.Exceptions.Expressions.VariableNotDefinedException;
+import com.Ghost.Interpreter.Exceptions.Expressions.VariableUndefinedException;
 import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Repository.ProgramState;
 
@@ -14,7 +14,7 @@ public class VariableExpression implements IExpression {
 
     public IValue evaluate(ProgramState state) throws InterpreterException {
         if(!state.getSymbolTable().has(id)) {
-            throw new VariableNotDefinedException();
+            throw new VariableUndefinedException();
         }
         return state.getSymbolTable().get(id);
     }

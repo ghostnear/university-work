@@ -10,19 +10,22 @@ public class ProgramState {
     Stack<IStatement> executionStack;
     Dictionary<String, IValue> symbolTable;
     List<IValue> output;
+    Dictionary<String, BufferedReader> fileReadTable;
     boolean running;
 
     public ProgramState() {
         this.executionStack = new Stack<IStatement>(255);
         this.symbolTable = new Dictionary<String, IValue>();
         this.output = new List<IValue>(255);
+        this.fileReadTable = new Dictionary<String, BufferedReader>();
         running = false;
     }
 
-    public ProgramState(Stack<IStatement> newExecutionStack, Dictionary<String, IValue> newSymbolTable, List<IValue> newOutput) {
+    public ProgramState(Stack<IStatement> newExecutionStack, Dictionary<String, IValue> newSymbolTable, List<IValue> newOutput, Dictionary<String, BufferedReader> newFileReadTable) {
         this.executionStack = newExecutionStack;
         this.symbolTable = newSymbolTable;
         this.output = newOutput;
+        this.fileReadTable = newFileReadTable;
         running = false;
     }
 
@@ -43,6 +46,8 @@ public class ProgramState {
             file.println(this.symbolTable);
             file.println("Output:");
             file.println(this.output);
+            file.println("Read file table:");
+            file.println(this.fileReadTable);
             file.close();
         }
         catch(IOException e) {
@@ -72,5 +77,9 @@ public class ProgramState {
 
     public List<IValue> getOutput() {
         return this.output;
+    }
+
+    public Dictionary<String, BufferedReader> getReadFileTable() {
+        return this.fileReadTable;
     }
 }

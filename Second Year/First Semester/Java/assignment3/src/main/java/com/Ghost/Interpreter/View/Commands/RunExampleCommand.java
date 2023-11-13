@@ -18,6 +18,8 @@ public class RunExampleCommand extends Command {
 
     @Override
     public void execute() {
+        this.interpreter.set_log_file("./log" + this.name + ".txt");
+
         try {
             this.interpreter.reset_program_state();
             this.interpreter.load_program(command);
@@ -28,6 +30,7 @@ public class RunExampleCommand extends Command {
         }
 
         // Print the output at the end.
+        System.out.println("Program output:");
         System.out.println(this.interpreter.get_output());
     }
 }

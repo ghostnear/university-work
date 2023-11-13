@@ -1,7 +1,7 @@
 package com.Ghost.Interpreter.View;
 
 public abstract class Command {
-    String name, description;
+    protected String name, description;
 
     public Command(String name, String description) {
         this.name = name;

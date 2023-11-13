@@ -37,7 +37,7 @@ public class ReadFromFileStatement implements IStatement {
         try {
             String line = state.getReadFileTable().get(name).readLine();
             if(line == null)
-                state.getSymbolTable().set(this.variableID, new IntegerValue(0));
+                state.getSymbolTable().set(this.variableID, new IntegerType().default_value());
             else
                 state.getSymbolTable().set(this.variableID, new IntegerValue(Integer.parseInt(line)));
         }

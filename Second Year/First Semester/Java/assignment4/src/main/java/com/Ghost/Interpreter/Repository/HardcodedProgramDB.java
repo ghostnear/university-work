@@ -305,6 +305,41 @@ public class HardcodedProgramDB {
                 )
             )  
         );
+
+        // File example #5 from Lab7.pdf
+        statements.add(
+            new CompositeStatement(
+                new VariableDeclareStatement(
+                    "v", 
+                    new IntegerType()
+                ),
+                new CompositeStatement(
+                    new AssignStatement(
+                        "v",
+                        new ValueExpression(new IntegerValue(4))
+                    ),
+                    new WhileStatement(
+                        new RelationalExpression(
+                            ">",
+                            new VariableExpression("v"),
+                            new ValueExpression(new IntegerValue(0))
+                        ),
+                        new CompositeStatement(
+                            new PrintStatement(new VariableExpression("v")),
+                            new AssignStatement(
+                                "v",
+                                new ArithmeticExpression(
+                                    "-",
+                                    new VariableExpression("v"),
+                                    new ValueExpression(new IntegerValue(1))
+                                )
+                            )
+                        ),
+                        new PrintStatement(new VariableExpression("v"))
+                    )
+                )
+            )  
+        );
     }
 
     public ArrayList<IStatement> getAll() {

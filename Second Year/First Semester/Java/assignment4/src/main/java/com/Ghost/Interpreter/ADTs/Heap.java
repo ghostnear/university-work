@@ -16,9 +16,13 @@ public class Heap<TKey, TData> implements IMemHeap<TKey, TData> {
             }
     }
 
+    public HashMap<TKey, TData> all() {
+        return elements;
+    }
+
     public void set(TKey key, TData value) {
         this.elements.put(key, value);
-        this.size = this.elements.size();
+        this.size = this.elements.size() + 1;
         refresh_next();
     }
 

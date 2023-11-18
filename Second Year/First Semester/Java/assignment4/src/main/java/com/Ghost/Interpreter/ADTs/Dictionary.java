@@ -24,6 +24,10 @@ public class Dictionary<TKey, TData> implements IDictionary<TKey, TData> {
         this.size = this.elements.size();
     }
 
+    public HashMap<TKey, TData> all() {
+        return this.elements;
+    }
+
     public void clear() {
         this.elements.clear();
         this.size = this.elements.size();

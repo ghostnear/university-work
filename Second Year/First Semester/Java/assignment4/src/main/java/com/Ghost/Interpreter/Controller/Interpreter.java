@@ -15,8 +15,9 @@ public class Interpreter {
             if(this.logFile != null && !(this.programState.get_execution_stack().size() != 0 && this.programState.get_execution_stack().top() instanceof CompositeStatement))
                 this.programState.log(this.logFile);
         }
-        catch(InterpreterException e) {
-            System.out.println("An error occured while logging the program:\n" + e);
+        catch(InterpreterException error) {
+            System.out.println("An error occured while logging the program:\n\t");
+            error.printStackTrace();
         }
     }
 
@@ -37,8 +38,10 @@ public class Interpreter {
 
     public void run_program() throws InterpreterException {
         log_current_program_status();
-        while(this.programState.is_running() && !this.programState.get_execution_stack().is_empty())
+        while(this.programState.is_running() && !this.programState.get_execution_stack().is_empty()) {
             step_program();
+            UnsafeGarbageCollector.collect(programState);
+        }
     }
 
     public void stop() {

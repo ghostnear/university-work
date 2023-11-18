@@ -25,7 +25,8 @@ public class RunExampleCommand extends Command {
             this.interpreter.load_program(command);
             this.interpreter.run_program();
         } catch (InterpreterException exception) {
-            System.out.println("An error occured while executing the program:\n" + exception);
+            System.out.println("An error occured while executing the program:\n");
+            exception.printStackTrace();
             this.interpreter.stop();
         }
 

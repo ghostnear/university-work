@@ -1,5 +1,5 @@
-# Assignment 3
+# Assignment 4
 
 ## Toy language part 2.
 
-Consult the massive Lab5.pdf for the actual task requirements.
+Consult the Lab7.pdf for the actual task requirements.

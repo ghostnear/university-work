@@ -29,6 +29,7 @@ public class ProgramState {
         this.executionStack.clear();
         this.symbolTable.clear();
         this.output.clear();
+        this.heap.clear();
     }
 
     public void log(String filePath) throws InterpreterException {

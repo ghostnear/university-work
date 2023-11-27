@@ -1,3 +1,14 @@
+; list_append(first second) -> second if first == {}
+;                           -> first if second == {}
+;                           -> first[0] + list_append(first[1..n] second) otherwise
+(defun list_append(first second)
+    (cond
+        ((null first) second)
+        ((null second) first)
+        (t (cons (car first) (list_append (cdr first) second)))
+    )
+)
+
 ; a) Write a function to return the difference of two sets.
 ; set_diff(first second)    ->  {} if first == {}
 ;                           ->  first[0] == second[0]   ->  set_diff(first[1..n] second[1..m])
@@ -26,8 +37,8 @@
         (return-from reverse_list ())
     )
     (if (listp (car givenList))
-        (append (reverse_list(cdr givenList)) (list(reverse_list(car givenList))))
-        (append (reverse_list(cdr givenList)) (list(car givenList)))
+        (list_append (reverse_list(cdr givenList)) (list(reverse_list(car givenList))))
+        (list_append (reverse_list(cdr givenList)) (list(car givenList)))
     )
 )
 
@@ -44,7 +55,7 @@
         (return-from weird_fun_collect ())
     )
     (if (listp (car givenList))
-        (append (weird_fun (car givenList)) (weird_fun_collect (cdr givenList)))
+        (list_append (weird_fun (car givenList)) (weird_fun_collect (cdr givenList)))
         (weird_fun_collect (cdr givenList))
     )
 )
@@ -55,7 +66,7 @@
         (if (= (mod (length givenList) 2) 1)
             (setq result (list(car givenList)))
         )
-        (setq result (append result (weird_fun_collect givenList)))
+        (setq result (list_append result (weird_fun_collect givenList)))
         result
     )
 )

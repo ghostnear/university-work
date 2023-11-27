@@ -1,2 +1,2 @@
 run:
-	clisp prog.lsp
+	@clisp prog.lsp

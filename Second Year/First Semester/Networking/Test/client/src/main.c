@@ -60,14 +60,12 @@ int main()
         return -1;
     }
 
-    /*  Doesn't work for some reason... idk?
-        Otherwise we would've got more clients...
-    char broadcast = '1';
+    int broadcast = '1';
     if(setsockopt(udp_socket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast)) < 0)
     {
         printf("Error while setting UDP broadcasting option!\n");
         return -1;
-    }*/
+    }
 
     struct sockaddr_in udp_server;
     bzero(&udp_server, sizeof(udp_server));

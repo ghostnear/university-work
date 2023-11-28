@@ -96,7 +96,7 @@ CREATE OR ALTER PROCEDURE update_schema_version @version int as
         RAISERROR('Inexistent version', 10, 1)
 
     WHILE @currentVersion > @version BEGIN
-        SELECT @procedure = procedureName FROM SchemaProcedures WHERE targetVersion = @currentVersion AND sourceVersion = @currentVersion - 1
+        SELECT @procedure = procedureName FROM SchemaProcedures WHERE targetVersion = @currentVersion - 1 AND sourceVersion = @currentVersion
         EXEC (@procedure)
         SET @currentVersion = @currentVersion - 1
     END
@@ -109,4 +109,4 @@ CREATE OR ALTER PROCEDURE update_schema_version @version int as
 
     UPDATE SchemaVersion SET Version = @version;
 
-EXECUTE update_schema_version 10;
+EXECUTE update_schema_version 1;

@@ -14,7 +14,7 @@ CREATE TABLE Manga(
     Title varchar(255) NOT NULL,
 	TotalChapters int,
 	MangaType varchar(255) NOT NULL,
-	PhysicallyOwned bit DEFAULT 1,
+	PhysicallyOwned bit,
 	-- One to many.
 	MCover int FOREIGN KEY REFERENCES MangaCover(ID)
 );

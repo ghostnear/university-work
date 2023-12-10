@@ -5,9 +5,9 @@ Write recursive Lisp functions for the following problems (optionally, you may u
     As an example, the tree
          A
         / \
-       B C
-        / \
-        D E
+       B   C
+          / \
+          D E
 
 is represented as follows:
     (A 2 B 0 C 2 D 0 E 0) (1)

@@ -1,3 +1,5 @@
+; next_branch(tree, partialSum) =   tree[2...] if (partialSum - 1 + tree[1]) == 0
+;                                   next_branch(tree[2...], (partialSum - 1 + tree[1])) otherwise
 (defun next_branch(tree &optional (partialSum 0))
     (setq partialSum (+ (- partialSum 1) (car (cdr tree))))
     (if (equal partialSum 0)
@@ -6,6 +8,12 @@
     )
 )
 
+; tree_level(tree, value, currentLevel) = nil if tree == nil
+;                                       = currentLevel if tree[0] == value
+;                                       = nil if tree[1] == 0 and nothing above is true
+;                                       = tree_level(tree[2...], value, currentLevel + 1) if tree[1] == 1
+;                                       = tree_level(tree[2...], value, currentLevel + 1) or tree_level(next_branch(tree), value, currentLevel + 1) if tree[1] == 2
+; NOTE: this assumes the elements of the trees are different.
 (defun tree_level(tree value &optional (currentLevel 0))
     (if (equal tree nil)
         (return-from tree_level nil)
@@ -25,7 +33,7 @@
     )
 )
 
-(let ((tree '("A" 2 "B" 0 "C" 2 "D" 0 "E" 2 "F" 0 "G" 0)))
+(let ((tree '("A" 2 "B" 0 "C" 2 "D" 0 "E" 1 "F" 0)))
     (format t "The current tree is: ~A" tree)
     (terpri)
     (format t "The level of A is: ~A" (tree_level tree "A"))

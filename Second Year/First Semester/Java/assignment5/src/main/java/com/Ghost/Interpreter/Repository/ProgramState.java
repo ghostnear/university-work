@@ -19,6 +19,10 @@ public class ProgramState {
     IDictionary<String, BufferedReader> fileReadTable;
     boolean running;
 
+    public static void reset_last_usable_id() {
+        lastUsableID = 0;
+    }
+
     private static Integer get_new_id() {
         return lastUsableID++;
     }

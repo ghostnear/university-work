@@ -2,6 +2,7 @@ package com.Ghost.Interpreter.Repository;
 
 import java.io.*;
 import com.Ghost.Interpreter.ADTs.*;
+import com.Ghost.Interpreter.Controller.Interpreter;
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
 import com.Ghost.Interpreter.Exceptions.Files.*;
 import com.Ghost.Interpreter.Models.*;
@@ -11,17 +12,46 @@ public class ProgramState {
     IDictionary<String, IValue> symbolTable;
     IList<IValue> output;
     IMemHeap<Integer, IValue> heap;
+    final Integer id;
+    final Interpreter interpreter;
+    static Integer lastUsableID = 0;
 
     IDictionary<String, BufferedReader> fileReadTable;
     boolean running;
 
-    public ProgramState() {
+    private static Integer get_new_id() {
+        return lastUsableID++;
+    }
+
+    public ProgramState(Interpreter interpreter) {
         this.executionStack = new Stack<IStatement>(255);
         this.symbolTable = new Dictionary<String, IValue>();
         this.output = new List<IValue>(255);
         this.fileReadTable = new Dictionary<String, BufferedReader>();
         this.heap = new Heap<Integer, IValue>();
-        running = false;
+        this.running = false;
+        this.id = get_new_id();
+        this.interpreter = interpreter;
+    }
+
+    public ProgramState(Interpreter interpreter, ProgramState mainState)
+    {
+        this.executionStack = new Stack<IStatement>(255);
+        this.symbolTable = mainState.symbolTable.deepCopy();
+        this.output = mainState.output;
+        this.fileReadTable = mainState.fileReadTable;
+        this.heap = mainState.heap;
+        this.running = false;
+        this.id = get_new_id();
+        this.interpreter = interpreter;        
+    }
+
+    public Interpreter get_interpreter() {
+        return this.interpreter;
+    }
+
+    public Integer get_id() {
+        return this.id;
     }
 
     public void reset() {
@@ -36,6 +66,7 @@ public class ProgramState {
         try {
             PrintWriter file = new PrintWriter(new BufferedWriter(new FileWriter(filePath, true)));
             file.println("=============================");
+            file.println("Thread ID #" + this.id);
             file.println("Execution stack:");
             file.println(this.executionStack);
             file.println("Symbol table:");

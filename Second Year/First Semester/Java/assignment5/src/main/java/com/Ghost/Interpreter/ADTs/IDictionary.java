@@ -8,6 +8,7 @@ public interface IDictionary<TKey, TData> {
     Boolean has(TKey key);
     void remove(TKey key);
     String toString();
+    IDictionary<TKey, TData> deepCopy();
     Integer size();
     Boolean is_empty();
     public HashMap<TKey, TData> all();

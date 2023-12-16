@@ -23,7 +23,7 @@ public class RunExampleCommand extends Command {
         try {
             this.interpreter.reset_program_state();
             this.interpreter.load_program(command);
-            this.interpreter.run_program();
+            this.interpreter.run();
         } catch (InterpreterException exception) {
             System.out.println("An error occured while executing the program:\n");
             exception.printStackTrace();

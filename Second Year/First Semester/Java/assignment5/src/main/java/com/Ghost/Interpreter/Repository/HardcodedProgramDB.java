@@ -340,6 +340,62 @@ public class HardcodedProgramDB {
                 )
             )  
         );
+    
+        // Fork example from Lab8.pdf
+        statements.add(
+            new CompositeStatement(
+                new VariableDeclareStatement(
+                    "v", 
+                    new IntegerType()
+                ),
+                new CompositeStatement(
+                    new VariableDeclareStatement(
+                        "a",
+                        new RefferenceType(new IntegerType())
+                    ),
+                    new CompositeStatement(
+                        new AssignStatement(
+                            "v",
+                            new ValueExpression(new IntegerValue(10))
+                        ),
+                        new CompositeStatement(
+                            new AllocateStatement(
+                                "a",
+                                new ValueExpression(new IntegerValue(22))
+                            ),
+                            new CompositeStatement(
+                                new ForkStatement(
+                                    new CompositeStatement(
+                                        new WriteHeapStatement(
+                                            "a",
+                                            new ValueExpression(new IntegerValue(30))
+                                        ),
+                                        new CompositeStatement(
+                                            new AssignStatement(
+                                                "v",
+                                                new ValueExpression(new IntegerValue(32))
+                                            ),
+                                            new CompositeStatement(
+                                                new PrintStatement(new VariableExpression("v")),
+                                                new PrintStatement(
+                                                    new ReadHeapExpression(new VariableExpression("a"))
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                new CompositeStatement(
+                                    new PrintStatement(new VariableExpression("v")),
+                                    new PrintStatement(
+                                        new ReadHeapExpression(new VariableExpression("a"))
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
     }
 
     public ArrayList<IStatement> getAll() {

@@ -8,4 +8,5 @@ clean:
 	@echo "Project cleaned."
 
 run:
+	@rm -rf log*.txt
 	@java -cp target/Interpreter-1.0-SNAPSHOT.jar com.Ghost.Interpreter.View.Entry

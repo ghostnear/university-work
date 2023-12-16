@@ -6,7 +6,7 @@ import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Models.Types.RefferenceType;
 import com.Ghost.Interpreter.Models.Values.RefferenceValue;
 
-public class UnsafeGarbageCollector {
+public class GarbageCollector {
     public static void collect(ProgramState state) {
         ArrayList<Integer> allocatedPositions = new ArrayList<Integer>();
         for(IValue variable : state.get_symbol_table().all().values())

@@ -6,6 +6,13 @@ public class Dictionary<TKey, TData> implements IDictionary<TKey, TData> {
     Integer size;
     HashMap<TKey, TData> elements = new HashMap<TKey, TData>();
 
+    public Dictionary<TKey, TData> deepCopy() {
+        Dictionary<TKey, TData> newDictionary = new Dictionary<TKey, TData>();
+        for(TKey key : this.elements.keySet())
+            newDictionary.set(key, this.elements.get(key));
+        return newDictionary;
+    }
+
     public void set(TKey key, TData value) {
         this.elements.put(key, value);
         this.size = this.elements.size();

@@ -14,13 +14,13 @@ public class ProgramState {
     IMemHeap<Integer, IValue> heap;
     final Integer id;
     final Interpreter interpreter;
-    static Integer lastUsableID = 0;
+    static Integer lastUsableID = 1;
 
     IDictionary<String, BufferedReader> fileReadTable;
     boolean running;
 
     public static void reset_last_usable_id() {
-        lastUsableID = 0;
+        lastUsableID = 1;
     }
 
     private static Integer get_new_id() {
@@ -77,7 +77,7 @@ public class ProgramState {
             file.println(this.symbolTable);
             file.println("Output:");
             file.println(this.output);
-            file.println("Read file table:");
+            file.println("File table:");
             file.println(this.fileReadTable);
             file.println("Memory heap:");
             file.println(this.heap);

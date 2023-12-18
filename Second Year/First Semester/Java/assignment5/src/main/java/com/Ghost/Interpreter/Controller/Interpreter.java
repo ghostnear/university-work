@@ -79,6 +79,7 @@ public class Interpreter {
                     {
                         output = currentProgram.get_output().toString();
                         idsToRemove.add(currentProgram.get_id());
+                        currentProgram.log(this.logFile);
                     }
                     else
                         GarbageCollector.collect(currentProgram);

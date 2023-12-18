@@ -66,15 +66,23 @@ public class Interpreter {
 
             List<Callable<Void>> callList = programStates.stream()
                 .map((ProgramState currentProgram) -> (Callable<Void>)(() -> {
-                    this.step(currentProgram);
+                    try {
+                        this.step(currentProgram);
+                    }
+                    catch(InterpreterException error) {
+                        System.out.println("An error occured while executing the program:");
+                        error.printStackTrace();
+                        currentProgram.stop();
+                    }
+                    
                     if(!currentProgram.is_running())
                     {
                         output = currentProgram.get_output().toString();
                         idsToRemove.add(currentProgram.get_id());
                     }
-                    else {
+                    else
                         GarbageCollector.collect(currentProgram);
-                    }
+                    
                     return null;
                 }))
                 .collect(Collectors.toList());

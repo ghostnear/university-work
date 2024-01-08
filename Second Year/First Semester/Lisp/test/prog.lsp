@@ -60,5 +60,12 @@
 )
 
 (format t "~A" (numbers_set '(1 F (2 (1 3 E (2 4) 3) E 1) (1 4))))
+(terpri)
+(format t "~A" (numbers_set '(1 (2 3 (4 5) 6))))
+(terpri)
+(format t "~A" (numbers_set '(A (B C D (E) F G))))
+(terpri)
+(format t "~A" (numbers_set '(1 BC (1 D 2 (A 2 A) E 1 H))))
+(terpri)
 ; (numbers_set '(1 F (2 (1 3 E (2 4) 3) E 1) (1 4)) -> (1 4 2 3)
 ; Does not really return the results in order but it is what it is.

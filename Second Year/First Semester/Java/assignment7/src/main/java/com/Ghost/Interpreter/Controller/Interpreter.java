@@ -16,6 +16,8 @@ import com.Ghost.Interpreter.Models.*;
 import com.Ghost.Interpreter.Models.Statements.CompositeStatement;
 import com.Ghost.Interpreter.Repository.*;
 
+import javafx.util.Pair;
+
 public class Interpreter {
     ArrayList<ProgramState> programStates;
     String output = "";
@@ -67,6 +69,18 @@ public class Interpreter {
     public void run() throws InterpreterException {
         while(this.programStates.size() != 0)
             stepAll();
+    }
+
+    public ArrayList<Pair<Integer, IValue>> get_heap_all()
+    {
+        if(this.programStates.size() == 0)
+            return new ArrayList<Pair<Integer, IValue>>();
+
+        ArrayList<Pair<Integer, IValue>> result = new ArrayList<Pair<Integer, IValue>>();
+        for(Integer key : this.programStates.get(0).get_memory_heap().all().keySet())
+            result.add(new Pair<Integer, IValue>(key, this.programStates.get(0).get_memory_heap().get(key)));
+
+        return result;
     }
 
     public void stepAll() throws InterpreterException 

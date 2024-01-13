@@ -9,6 +9,8 @@ import com.Ghost.Interpreter.Models.IType;
 import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Repository.HardcodedProgramDB;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -38,6 +40,7 @@ public class GUIView extends IView {
 
     TextField threadCountField;
     ListView<String> outputField, fileTableField;
+    ListView<Integer> threadListField;
     TableView<Pair<Integer, IValue>> heapTable;
 
     private void populateView()
@@ -62,19 +65,37 @@ public class GUIView extends IView {
         fileTableField.editableProperty().set(false);
         fileTableField.refresh();
 
-        // Update heap.
-        TableColumn addressColumn = new TableColumn("Address");
-        addressColumn.setPrefWidth(100);
-        addressColumn.setSortable(false);
+        // Update thread IDs.
+        ObservableList<Integer> threadIDs = FXCollections.observableArrayList();
+        for(int i = 0; i < thread_count; i++)
+            threadIDs.add(interpreter.get_program_states().get(i).get_id());
+        threadListField.setItems(threadIDs);
+        threadListField.editableProperty().set(false);
+        if(threadListField.getSelectionModel().getSelectedItem() == null)
+            threadListField.getSelectionModel().select(0);
+        threadListField.refresh();
 
-        TableColumn valueColumn = new TableColumn("Value");
-        valueColumn.setPrefWidth(400);
+        // Stop here if no threads exist.
+        if(thread_count == 0)
+            return;
+
+        // Update heap.
+        TableColumn<Pair<Integer, IValue>, Integer> addressColumn = new TableColumn<Pair<Integer, IValue>, Integer>("Address");
+        addressColumn.setCellValueFactory(p -> new SimpleIntegerProperty(p.getValue().getKey()).asObject());
+        addressColumn.setPrefWidth(100);
+
+        TableColumn<Pair<Integer, IValue>, String> valueColumn = new TableColumn<Pair<Integer, IValue>, String>("Value");
+        valueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+        valueColumn.setPrefWidth(320);
         valueColumn.setSortable(false);
         
         heapTable.getColumns().clear();
         heapTable.getColumns().addAll(addressColumn, valueColumn);
-
+        
         heapTable.editableProperty().set(false);
+        heapTable.getItems().clear();
+        for(Pair<Integer, IValue> entry : interpreter.get_heap_all())
+            heapTable.getItems().add(entry);
         heapTable.refresh();
     }
 
@@ -135,15 +156,11 @@ public class GUIView extends IView {
         container.setHgap(4);
         container.setVgap(8);
 
-        HBox threadCountContainer = new HBox();
-        threadCountContainer.setSpacing(10);
-
-        Text threadCountText = new Text("Threads: ");
-        threadCountText.setStyle("-fx-font-size: 15px;");
+        VBox threadCountContainer = new VBox();
+        Text threadCountText = new Text("Thread count: ");
         threadCountText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
         threadCountField = new TextField("<null>");
-        threadCountField.setStyle("-fx-font-size: 15px;");
         threadCountField.editableProperty().setValue(false);
         threadCountContainer.getChildren().add(threadCountText);
         threadCountContainer.getChildren().add(threadCountField);
@@ -151,11 +168,13 @@ public class GUIView extends IView {
         outputField = new ListView<String>();
         fileTableField = new ListView<String>();
         heapTable = new TableView<Pair<Integer, IValue>>();
+        threadListField = new ListView<Integer>();
 
         container.add(threadCountContainer, 0, 0);
         container.add(new VBox(new Text("Output:"), outputField), 0, 2);
         container.add(new VBox(new Text("Files:"), fileTableField), 1, 2);
         container.add(new VBox(new Text("Heap:"), heapTable), 2, 2);
+        container.add(new VBox(new Text("Threads:"), threadListField), 0, 3);
 
         ButtonBar buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));

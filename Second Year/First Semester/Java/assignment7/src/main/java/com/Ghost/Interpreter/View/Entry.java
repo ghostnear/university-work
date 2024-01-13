@@ -3,11 +3,20 @@ package com.Ghost.Interpreter.View;
 import com.Ghost.Interpreter.Controller.*;
 import com.Ghost.Interpreter.Repository.*;
 
-public class Entry {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Entry extends Application {
     public static void main(String[] args) {
-        // The main method in Lab5.pdf is an abomination that should be banished from this existence.
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage mainWindow) throws Exception {
         Interpreter interpreter = new Interpreter();
-        TextView view = new TextView(interpreter, new HardcodedProgramDB());
+        IView view;
+        // view = new TextView(interpreter, new HardcodedProgramDB());
+        view = new GUIView(interpreter, new HardcodedProgramDB(), mainWindow);
         view.show();
     }
 }

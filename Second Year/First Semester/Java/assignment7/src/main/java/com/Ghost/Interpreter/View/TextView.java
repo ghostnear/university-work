@@ -7,7 +7,7 @@ import com.Ghost.Interpreter.Controller.*;
 import com.Ghost.Interpreter.Repository.*;
 import com.Ghost.Interpreter.View.Commands.*;
 
-public class TextView {
+public class TextView extends IView {
     Interpreter interpreter;
     HardcodedProgramDB programDB;
     Scanner inputScanner;

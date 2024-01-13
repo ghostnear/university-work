@@ -70,8 +70,8 @@ public class RelationalExpression implements IExpression {
         typeLeft = left.typeCheck(typeEnvironment);
         typeRight = right.typeCheck(typeEnvironment);
 
-        if(typeLeft.equals(new IntegerType())) {
-            if(typeRight.equals(new IntegerType())) {
+        if(typeLeft instanceof IntegerType) {
+            if(typeRight instanceof IntegerType) {
                 return new BooleanType();
             }
             else {

@@ -1,7 +1,9 @@
 package com.Ghost.Interpreter.Controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,8 +19,14 @@ import com.Ghost.Interpreter.Repository.*;
 public class Interpreter {
     ArrayList<ProgramState> programStates;
     String output = "";
+    Set<String> files;
     String logFile;
     ExecutorService executorService;
+
+    public Set<String> get_files()
+    {
+        return files;
+    }
 
     void log_current_program_status() {
         programStates.forEach(currentProgram -> {
@@ -41,6 +49,7 @@ public class Interpreter {
         this.programStates.clear();
         ProgramState.reset_last_usable_id();
         this.output = "";
+        this.files = new HashSet<String>();
     }
 
     public void load_program(IStatement program) throws StackOverflowException {
@@ -56,59 +65,69 @@ public class Interpreter {
     }
 
     public void run() throws InterpreterException {
-        executorService = Executors.newFixedThreadPool(2);
-
         while(this.programStates.size() != 0)
-        {
-            log_current_program_status();
+            stepAll();
+    }
 
-            ArrayList<Integer> idsToRemove = new ArrayList<Integer>();
+    public void stepAll() throws InterpreterException 
+    {
+        if(this.programStates.size() == 0)
+            return;
 
-            List<Callable<Void>> callList = programStates.stream()
-                .map((ProgramState currentProgram) -> (Callable<Void>)(() -> {
-                    try {
-                        this.step(currentProgram);
-                    }
-                    catch(InterpreterException error) {
-                        System.out.println("An error occured while executing the program:");
-                        error.printStackTrace();
-                        currentProgram.stop();
-                    }
-                    
-                    if(!currentProgram.is_running())
-                    {
-                        output = currentProgram.get_output().toString();
-                        idsToRemove.add(currentProgram.get_id());
-                        currentProgram.log(this.logFile);
-                    }
-                    else
-                        GarbageCollector.collect(currentProgram);
-                    
-                    return null;
-                }))
-                .collect(Collectors.toList());
-            
-            try {
-                executorService.invokeAll(callList);
-            }
-            catch(InterruptedException exception) {
-                throw new RunningException("Program execution interrupted.");
-            }
+        if(executorService == null)
+            executorService = Executors.newFixedThreadPool(2);
 
-            idsToRemove.forEach(id -> {
-                for(ProgramState currentProgram : this.programStates)
-                    if(currentProgram.get_id() == id)
-                    {
-                        this.programStates.remove(currentProgram);
-                        break;
-                    }
-            });
+        log_current_program_status();
 
-            if(this.programStates.size() != 0)
-                GarbageCollector.clear(this.programStates.get(0).get_memory_heap());
+        ArrayList<Integer> idsToRemove = new ArrayList<Integer>();
+
+        List<Callable<Void>> callList = programStates.stream()
+            .map((ProgramState currentProgram) -> (Callable<Void>)(() -> {
+                try {
+                    this.step(currentProgram);
+                }
+                catch(InterpreterException error) {
+                    System.out.println("An error occured while executing the program:");
+                    error.printStackTrace();
+                    currentProgram.stop();
+                }
+
+                output = currentProgram.get_output().toString();
+                files = programStates.get(0).fileReadTable.all().keySet();
+
+                if(!currentProgram.is_running())
+                {
+                    idsToRemove.add(currentProgram.get_id());
+                    currentProgram.log(this.logFile);
+                }
+                else
+                    GarbageCollector.collect(currentProgram);
+                
+                return null;
+            }))
+            .collect(Collectors.toList());
+        
+        try {
+            executorService.invokeAll(callList);
+        }
+        catch(InterruptedException exception) {
+            throw new RunningException("Program execution interrupted.");
         }
 
+        idsToRemove.forEach(id -> {
+            for(ProgramState currentProgram : this.programStates)
+                if(currentProgram.get_id() == id)
+                {
+                    this.programStates.remove(currentProgram);
+                    break;
+                }
+        });
+
+        if(this.programStates.size() != 0)
+            GarbageCollector.clear(this.programStates.get(0).get_memory_heap());
+
         executorService.shutdownNow();
+        executorService = null;
     }
 
     public void stop() {

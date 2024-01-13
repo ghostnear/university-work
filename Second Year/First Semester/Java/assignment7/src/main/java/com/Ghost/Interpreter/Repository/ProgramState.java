@@ -16,7 +16,7 @@ public class ProgramState {
     final Interpreter interpreter;
     static Integer lastUsableID = 1;
 
-    IDictionary<String, BufferedReader> fileReadTable;
+    public IDictionary<String, BufferedReader> fileReadTable;
     boolean running;
 
     public static void reset_last_usable_id() {

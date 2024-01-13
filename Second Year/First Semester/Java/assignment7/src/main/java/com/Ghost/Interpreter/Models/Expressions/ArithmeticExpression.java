@@ -116,27 +116,27 @@ public class ArithmeticExpression implements IExpression {
         typeLeft = left.typeCheck(typeEnvironment);
         typeRight = right.typeCheck(typeEnvironment);
 
-        if(typeLeft.equals(new IntegerType())) {
-            if(typeRight.equals(new IntegerType())) {
+        if(typeLeft instanceof IntegerType) {
+            if(typeRight instanceof IntegerType) {
                 return new IntegerType();
             }
             else if(typeRight.equals(new RefferenceType(new IntegerType()))) {
                 return new RefferenceType(new IntegerType());
             }
             else {
-                throw new CheckingException("AritmeticExpression: Right operand is not an arithmetic type.");
+                throw new CheckingException("ArithmeticExpression: Right operand is not an arithmetic type.");
             }
         }
-        else if(typeLeft.equals(new RefferenceType(new IntegerType()))) {
-            if(typeRight.equals(new IntegerType())) {
+        else if(typeLeft instanceof RefferenceType) {
+            if(typeRight instanceof IntegerType) {
                 return new RefferenceType(new IntegerType());
             }
             else {
-                throw new CheckingException("AritmeticExpression: Right operand is not an integer.");
+                throw new CheckingException("ArithmeticExpression: Right operand is not an integer.");
             }
         }
         else {
-            throw new CheckingException("AritmeticExpression: Left operand is not an arithmetic type.");
+            throw new CheckingException("ArithmeticExpression: Left operand is not an arithmetic type. It is of type: " + typeLeft.toString());
         }
     }
 }

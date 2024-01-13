@@ -2,21 +2,34 @@ package com.Ghost.Interpreter.View;
 
 import java.util.ArrayList;
 
+import com.Ghost.Interpreter.ADTs.Dictionary;
 import com.Ghost.Interpreter.Controller.Interpreter;
 import com.Ghost.Interpreter.Models.IStatement;
+import com.Ghost.Interpreter.Models.IType;
+import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Repository.HardcodedProgramDB;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class GUIView extends IView {
     Stage window;
@@ -24,10 +37,45 @@ public class GUIView extends IView {
     Interpreter interpreter;
 
     TextField threadCountField;
+    ListView<String> outputField, fileTableField;
+    TableView<Pair<Integer, IValue>> heapTable;
 
     private void populateView()
     {
-        threadCountField.setText(String.valueOf(interpreter.get_program_states().size()));
+        final int thread_count = interpreter.get_program_states().size();
+
+        // Update thread count.
+        threadCountField.setText(String.valueOf(thread_count));
+
+        // Update output.
+        ObservableList<String> programOutputs = FXCollections.observableArrayList();
+        for(String s : interpreter.get_output().split("\n"))
+            programOutputs.add(s);
+        outputField.setItems(programOutputs);
+        outputField.editableProperty().set(false);
+
+        // Update files.
+        ObservableList<String> fileOutputs = FXCollections.observableArrayList();
+        for(String s : interpreter.get_files())
+            fileOutputs.add(s);
+        fileTableField.setItems(fileOutputs);
+        fileTableField.editableProperty().set(false);
+        fileTableField.refresh();
+
+        // Update heap.
+        TableColumn addressColumn = new TableColumn("Address");
+        addressColumn.setPrefWidth(100);
+        addressColumn.setSortable(false);
+
+        TableColumn valueColumn = new TableColumn("Value");
+        valueColumn.setPrefWidth(400);
+        valueColumn.setSortable(false);
+        
+        heapTable.getColumns().clear();
+        heapTable.getColumns().addAll(addressColumn, valueColumn);
+
+        heapTable.editableProperty().set(false);
+        heapTable.refresh();
     }
 
     private Parent createSelectionContents()
@@ -44,13 +92,17 @@ public class GUIView extends IView {
             final int finalIndex = index;
             button.onMouseClickedProperty().setValue((event) -> {
                 try {
+                    interpreter.reset_program_state();
+                    programs.get(finalIndex).typeCheck(new Dictionary<String, IType>());
                     interpreter.load_program(programs.get(finalIndex));
+                    window.setScene(new Scene(createProfilerComponents(), 960, 960));
+                    window.setTitle("Program Profiler");
+                    populateView();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.toString(), ButtonType.OK);
+                    alert.showAndWait();
                 }
-                window.setScene(new Scene(createProfilerComponents(), 960, 960));
-                window.setTitle("Program Profiler");
-                populateView();
             });
             button.setPrefWidth(960 / 3);
             button.setPrefHeight(960 / 3);
@@ -64,7 +116,7 @@ public class GUIView extends IView {
         }
         container.getChildren().add(parent);
 
-        Text instructionText = new Text("Press on any button to select a program.\nThis will open up a new window.");
+        Text instructionText = new Text("Press on any button to select a program.\nThis will replace the current window.");
         instructionText.setWrappingWidth(960 / 3);
         instructionText.setStyle("-fx-font-size: 15px;");
         instructionText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
@@ -78,6 +130,7 @@ public class GUIView extends IView {
         VBox layout = new VBox();
 
         GridPane container = new GridPane();
+        VBox.setVgrow(container, Priority.ALWAYS );
         container.setPadding(new Insets(10));
         container.setHgap(4);
         container.setVgap(8);
@@ -95,11 +148,47 @@ public class GUIView extends IView {
         threadCountContainer.getChildren().add(threadCountText);
         threadCountContainer.getChildren().add(threadCountField);
 
-        container.add(threadCountContainer, 0, 0);
+        outputField = new ListView<String>();
+        fileTableField = new ListView<String>();
+        heapTable = new TableView<Pair<Integer, IValue>>();
 
-        layout.getChildren().addAll(container, new Separator());
+        container.add(threadCountContainer, 0, 0);
+        container.add(new VBox(new Text("Output:"), outputField), 0, 2);
+        container.add(new VBox(new Text("Files:"), fileTableField), 1, 2);
+        container.add(new VBox(new Text("Heap:"), heapTable), 2, 2);
+
+        ButtonBar buttonBar = new ButtonBar();
+        buttonBar.setPadding(new Insets(10));
+
+        Button advanceButton = new Button("Step once");
+        advanceButton.setDefaultButton(true);
+        advanceButton.onMouseClickedProperty().setValue((event) -> {
+            try {
+                interpreter.stepAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR, e.toString(), ButtonType.OK);
+                alert.showAndWait();
+            }
+            populateView();
+        });
+
+        Button backButton = new Button("Go back");
+        backButton.onMouseClickedProperty().setValue((event) -> {
+            initSelection();
+        });
+
+        buttonBar.getButtons().addAll(advanceButton, backButton);
+        layout.getChildren().addAll(container, new Separator(), buttonBar);
 
         return layout;
+    }
+
+    private void initSelection()
+    {
+        window.setTitle("Select a Program");
+        window.resizableProperty().setValue(false);
+        window.setScene(new Scene(createSelectionContents(), 960, 960));
     }
 
     public GUIView(Interpreter newInterpreter, HardcodedProgramDB newProgramDB, Stage mainWindow) {
@@ -107,9 +196,7 @@ public class GUIView extends IView {
         programRepository = newProgramDB;
 
         window = mainWindow;
-        window.setTitle("Select a Program");
-        window.resizableProperty().setValue(false);
-        window.setScene(new Scene(createSelectionContents(), 960, 960));
+        initSelection();
     }
 
     public void show() {

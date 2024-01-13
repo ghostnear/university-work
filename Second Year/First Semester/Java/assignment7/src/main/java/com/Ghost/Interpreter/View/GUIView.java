@@ -8,6 +8,7 @@ import com.Ghost.Interpreter.Models.IStatement;
 import com.Ghost.Interpreter.Models.IType;
 import com.Ghost.Interpreter.Models.IValue;
 import com.Ghost.Interpreter.Repository.HardcodedProgramDB;
+import com.Ghost.Interpreter.Repository.ProgramState;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,7 +40,7 @@ public class GUIView extends IView {
     Interpreter interpreter;
 
     TextField threadCountField;
-    ListView<String> outputField, fileTableField;
+    ListView<String> outputField, fileTableField, executionStackField;
     ListView<Integer> threadListField;
     TableView<Pair<Integer, IValue>> heapTable;
 
@@ -73,7 +74,33 @@ public class GUIView extends IView {
         threadListField.editableProperty().set(false);
         if(threadListField.getSelectionModel().getSelectedItem() == null)
             threadListField.getSelectionModel().select(0);
+        threadListField.setOnMouseClicked(mouseEvent -> populateView());
         threadListField.refresh();
+
+        // Update other stuff only if we have a thread selected, otherwise clear.
+        if(threadListField.getSelectionModel().getSelectedItem() == null) {
+            executionStackField.setItems(FXCollections.observableArrayList());
+            executionStackField.refresh();
+        }
+        else {
+            // Update execution stack.
+            ProgramState selectedProgram = null;
+            for(ProgramState program : interpreter.get_program_states())
+            {
+                if(program.get_id() == threadListField.getSelectionModel().getSelectedItem())
+                {
+                    selectedProgram = program;
+                    break;
+                }
+            }
+
+            ObservableList<String> executionStack = FXCollections.observableArrayList();
+            for(IStatement statement : selectedProgram.get_execution_stack().all())
+                executionStack.add(statement.toString());
+            executionStackField.setItems(executionStack);
+            executionStackField.editableProperty().set(false);
+            executionStackField.refresh();
+        }
 
         // Stop here if no threads exist.
         if(thread_count == 0)
@@ -169,12 +196,14 @@ public class GUIView extends IView {
         fileTableField = new ListView<String>();
         heapTable = new TableView<Pair<Integer, IValue>>();
         threadListField = new ListView<Integer>();
+        executionStackField = new ListView<String>();
 
         container.add(threadCountContainer, 0, 0);
         container.add(new VBox(new Text("Output:"), outputField), 0, 2);
         container.add(new VBox(new Text("Files:"), fileTableField), 1, 2);
         container.add(new VBox(new Text("Heap:"), heapTable), 2, 2);
         container.add(new VBox(new Text("Threads:"), threadListField), 0, 3);
+        container.add(new VBox(new Text("Execution stack:"), executionStackField), 1, 3);
 
         ButtonBar buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));

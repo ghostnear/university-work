@@ -1,5 +1,7 @@
 package com.Ghost.Interpreter.ADTs;
 
+import java.util.ArrayList;
+
 import com.Ghost.Interpreter.Exceptions.Stack.*;
 
 public interface IStack<TData> {
@@ -9,5 +11,6 @@ public interface IStack<TData> {
     Integer size();
     boolean is_empty();
     String toString();
+    ArrayList<TData> all();
     void clear();
 }

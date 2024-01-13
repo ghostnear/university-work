@@ -9,6 +9,10 @@ public class Stack<TData> implements IStack<TData> {
     Integer capacity;
     ArrayList<TData> elements;
 
+    public ArrayList<TData> all() {
+        return this.elements;
+    }
+
     public Stack(Integer newCapacity) {
         this.size = 0;
         this.capacity = newCapacity;

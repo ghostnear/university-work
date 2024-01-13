@@ -44,6 +44,10 @@ public class GUIView extends IView {
     ListView<Integer> threadListField;
     TableView<Pair<Integer, IValue>> heapTable;
 
+    TableView<Pair<String, IValue>> symbolTableView;
+    TableColumn<Pair<String, IValue>, String> symbolTableVariableNameColumn;
+    TableColumn<Pair<String, IValue>, String> symbolTableValueColumn;
+
     private void populateView()
     {
         final int thread_count = interpreter.get_program_states().size();
@@ -81,6 +85,9 @@ public class GUIView extends IView {
         if(threadListField.getSelectionModel().getSelectedItem() == null) {
             executionStackField.setItems(FXCollections.observableArrayList());
             executionStackField.refresh();
+
+            symbolTableView.getItems().clear();
+            symbolTableView.refresh();
         }
         else {
             // Update execution stack.
@@ -100,6 +107,24 @@ public class GUIView extends IView {
             executionStackField.setItems(executionStack);
             executionStackField.editableProperty().set(false);
             executionStackField.refresh();
+
+            // Update symbol table.
+            TableColumn<Pair<String, IValue>, String> symbolTableVariableNameColumn = new TableColumn<Pair<String, IValue>, String>("Variable");
+            symbolTableVariableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
+            symbolTableVariableNameColumn.setPrefWidth(120);
+
+            TableColumn<Pair<String, IValue>, String> symbolTableValueColumn = new TableColumn<Pair<String, IValue>, String>("Value");
+            symbolTableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+            symbolTableValueColumn.setPrefWidth(300);
+            symbolTableValueColumn.setSortable(false);
+
+            symbolTableView.getColumns().clear();
+            symbolTableView.getColumns().addAll(symbolTableVariableNameColumn, symbolTableValueColumn);
+            symbolTableView.editableProperty().set(false);
+            symbolTableView.getItems().clear();
+            for(Pair<String, IValue> entry : selectedProgram.get_symbol_table_all())
+                symbolTableView.getItems().add(entry);
+            symbolTableView.refresh();
         }
 
         // Stop here if no threads exist.
@@ -197,6 +222,7 @@ public class GUIView extends IView {
         heapTable = new TableView<Pair<Integer, IValue>>();
         threadListField = new ListView<Integer>();
         executionStackField = new ListView<String>();
+        symbolTableView = new TableView<Pair<String, IValue>>();
 
         container.add(threadCountContainer, 0, 0);
         container.add(new VBox(new Text("Output:"), outputField), 0, 2);
@@ -204,6 +230,7 @@ public class GUIView extends IView {
         container.add(new VBox(new Text("Heap:"), heapTable), 2, 2);
         container.add(new VBox(new Text("Threads:"), threadListField), 0, 3);
         container.add(new VBox(new Text("Execution stack:"), executionStackField), 1, 3);
+        container.add(new VBox(new Text("Symbol table:"), symbolTableView), 2, 3);
 
         ButtonBar buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));

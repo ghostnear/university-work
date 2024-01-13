@@ -1,11 +1,15 @@
 package com.Ghost.Interpreter.Repository;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import com.Ghost.Interpreter.ADTs.*;
 import com.Ghost.Interpreter.Controller.Interpreter;
 import com.Ghost.Interpreter.Exceptions.InterpreterException;
 import com.Ghost.Interpreter.Exceptions.Files.*;
 import com.Ghost.Interpreter.Models.*;
+
+import javafx.util.Pair;
 
 public class ProgramState {
     IStack<IStatement> executionStack;
@@ -18,6 +22,15 @@ public class ProgramState {
 
     public IDictionary<String, BufferedReader> fileReadTable;
     boolean running;
+
+    public ArrayList<Pair<String, IValue>> get_symbol_table_all()
+    {
+        ArrayList<Pair<String, IValue>> result = new ArrayList<Pair<String, IValue>>();
+        for(String key : symbolTable.all().keySet())
+            result.add(new Pair<String, IValue>(key, symbolTable.get(key)));
+
+        return result;
+    }
 
     public static void reset_last_usable_id() {
         lastUsableID = 1;

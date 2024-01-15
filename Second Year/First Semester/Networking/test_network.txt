@@ -1,0 +1,80 @@
+LAN1 can store 2048 hosts.
+2048 + 3 = 2051 addresses.
+2^12 = 4096 -> can fit 2051.
+
+179.26.224.0/19
+       11100000.00000000
+           -------------
+
+LAN1:
+    Network address:
+        179.26.224.0
+    Broadcast address:
+        179.26.239.255
+    Network mask:
+        255.255.240.0
+    Can host:
+        4093 as 3 addresses are already used.
+
+LAN2 can store 1021 hosts.
+1021 + 3 = 1024 addresses.
+2^10 = 1024 -> can fit 1024.
+
+179.26.240.0/19
+       11110000.00000000
+             -----------
+
+LAN2:
+    Network address:
+        179.26.240.0
+    Broadcast address:
+        179.26.243.255
+    Network mask:
+        255.255.252.0
+    Can host:
+        1021 as 3 addresses are already used.
+
+LAN3 can store 256 hosts.
+256 + 3 = 259 addresses.
+2^9 = 512 -> can fit 259.
+
+179.26.244.0/19
+       11111010.00000000
+              ----------
+
+LAN3:
+    Network address:
+        179.26.244.0/22
+    Broadcast address:
+        179.26.245.255/22
+    Network mask:
+        255.255.254.0
+    Can host:
+        509 as 3 addresses are already used.
+
+LAN4 can store 125 hosts.
+125 + 3 = 128 addresses.
+2^7 = 128 -> can fit 128.
+
+179.26.246.0/19
+       11111100.00000000
+                 -------
+
+LAN4:
+    Network address:
+        179.26.246.0/24
+    Broadcast address:
+        179.26.246.128/24
+    Network mask:
+        255.255.255.128
+    Can host:
+        125 as 3 addresses are already used.
+
+Router1:
+    10.10.128.1/26
+
+Router2:
+    10.10.128.2/26
+
+Router3:
+    10.10.128.3/26

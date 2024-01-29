@@ -26,11 +26,16 @@ public class NewCountdownLatch implements IStatement {
         if(!value.get_type().equal(new IntegerType()))
             throw new RunningException("Latch value must be an integer");
 
-        Integer latchID = state.get_latch_table().next_free();
-        state.get_latch_table().set(latchID, value);
+        if(!state.get_symbol_table().has(this.variableName))
+            throw new RuntimeException("Latch variable not declared");
 
+        Integer latchID = state.get_latch_table().next_free();
+        
         if(state.get_symbol_table().get(this.variableName).get_type().equal(new IntegerType()))
+        {
             state.get_symbol_table().set(this.variableName, new IntegerValue(latchID));
+            state.get_latch_table().set(latchID, value);
+        }
         else
             throw new RunningException("Latch variable must be an integer");
     }

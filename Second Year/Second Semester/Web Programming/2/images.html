@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            .mr-4 {
+                margin-right: 4rem;
+            }
+
+            .bg-dark {
+                background-color: #2c3e50;
+            }
+
+            .text-white {
+                color: #ffffff;
+            }
+
+            .row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+                margin: 0;
+            }
+
+            .col {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin: 0;
+            }
+
+            .thumbnail {
+                display: inline-block;
+                margin: 10px;
+                cursor: pointer;
+            }
+
+            .thumbnail img {
+                width: auto;
+                height: 50px;
+                border: 1px dashed #ccc;
+            }
+
+            .thumbnail img:hover {
+                border: 1px solid #000;
+            }
+
+            .larger-image {
+                background-image: url("./initial.jpg");
+                width: 600px;
+                height: 400px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+
+            body:has(.first:hover) .larger-image {
+                background-image: url("./1.png") !important;
+                width: calc(1920 / 1080 * 400px);
+            }
+
+            body:has(.second:hover) .larger-image {
+                background-image: url("./2.png") !important;
+                width: calc(3840 / 2162 * 400px);
+            }
+
+            body:has(.third:hover) .larger-image {
+                background-image: url("./3.png") !important;
+                width: calc(2560 / 1920 * 400px);
+            }
+
+            body:has(.fourth:hover) .larger-image {
+                background-image: url("./4.png") !important;
+                width: calc(1920 / 1080 * 400px);
+            }
+
+            body:has(.fifth:hover) .larger-image {
+                background-image: url("./5.png") !important;
+                width: calc(2560 / 1440 * 400px);
+            }
+        </style>
+    </head>
+    <body class="container bg-dark">
+        <main class="mr-4 text-white">
+            <h1>Task:</h1>
+            <p>Write a web page which should contain on a row several thumbnail images and above that row should contain a larger image.<br/>If the mouse is over a thumbnail image, the larger version of that image should appear above it.</p>
+        </main>
+        <div class="larger-image"></div>
+        <div class="row">
+            <div class="thumbnail first">
+                <img src="1.png" alt="Thumbnail 1">
+            </div>
+            <div class="thumbnail second">
+                <img src="2.png" alt="Thumbnail 2">
+            </div>
+            <div class="thumbnail third">
+                <img src="3.png" alt="Thumbnail 3">
+            </div>
+            <div class="thumbnail fourth">
+                <img src="4.png" alt="Thumbnail 4">
+            </div>
+            <div class="thumbnail fifth">
+                <img src="5.png" alt="Thumbnail 5">
+            </div>
+        </div>
+    </body>
+</html>

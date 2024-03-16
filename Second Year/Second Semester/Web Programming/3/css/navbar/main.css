@@ -1,0 +1,25 @@
+.navbar-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #FFF;
+    min-height: auto;
+}
+
+.navbar .navbar-inner {
+    display: table;
+    border-collapse: separate;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.container {
+    width: 1520px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}

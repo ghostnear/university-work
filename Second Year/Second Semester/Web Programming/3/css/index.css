@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #222222;
+    background-color: #F2F2F7;
+    overflow-x: hidden;
+
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #222222;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+}

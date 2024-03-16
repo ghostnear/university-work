@@ -1,0 +1,13 @@
+.navbar-branding {
+    display: table-cell;
+    width: auto;
+    vertical-align: middle;
+}
+
+.navbar-brand {
+    display: block;
+    width: 155px;
+    height: 36px;
+    padding: 0px 10px;
+    margin-left: -10px;
+}

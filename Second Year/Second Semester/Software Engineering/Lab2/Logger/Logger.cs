@@ -1,4 +1,7 @@
-﻿namespace Logging
+﻿using System.ComponentModel;
+using System.Reflection.Metadata;
+
+namespace Logging
 {
     public enum LogLevel
     {
@@ -9,10 +12,11 @@
         FATAL
     }
 
-    public abstract class Logger
+    public abstract class Logger : IDisposable
     {
         protected string[] logBuffer;
         protected int logBufferSize, logPosition = 0;
+        protected bool disposed = false;
 
         public Logger(int bufferSize = 3)
         {
@@ -20,10 +24,6 @@
             logBuffer = new string[logBufferSize];
         }
 
-        ~Logger()
-        {
-            flush();
-        }
 
         protected string buildFlushableString()
         {
@@ -49,5 +49,26 @@
         }
 
         public abstract void flush();
+
+        // Cursed be it all.
+        ~Logger()
+        {
+            flush();
+        }
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                flush();
+
+                disposed = true;
+            }
+        }
     }
 }

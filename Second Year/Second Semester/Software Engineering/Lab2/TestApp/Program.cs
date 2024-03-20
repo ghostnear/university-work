@@ -20,8 +20,6 @@ namespace TestApp
 
             Console.WriteLine("Hello, World 2!");
 
-            logger.flush();
-
             // File writer example demonstrates file working.
             FileLogger fileLogger = new FileLogger("log.txt");
 

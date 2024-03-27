@@ -1,0 +1,53 @@
+.navbar-aux {
+    background: linear-gradient(to right,#ff1d25 5%,#a0328c 35%,#7040a4 45%,#4359c7 55%,#0082e6 70%);
+    top: 56px;
+    left: 0;
+    width: 100%;
+    min-height: 40px;
+    display: block;
+    position: absolute;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navbar-left {
+    float: left;
+    color: #FFF;
+}
+
+.nav {
+    list-style: none;
+}
+
+.navbar-nav {
+    padding: 0;
+    margin-top: 9px;
+    margin-bottom: 0;
+}
+
+.navbar-nav > li {
+    float: left;
+    font-size: 12px;
+    padding: 4px 10px;
+    color: #FFF;
+}
+
+.active {
+    color: #000!important;
+    font-size: 14px!important;
+}
+
+.navbar-aux-content {
+    padding: 5px 10px 5px;
+    display: block;
+    color: #222222;
+    background-color: #fff;
+    line-height: 20px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.navbar-right {
+    float: right;
+    color: #FFF;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Combo Box Thingy idk</title>
+</head>
+<body>
+    <h1> Select a country: </h1>
+    <div class="select-editable">
+        <select>
+            <option value="Romania">Romania</option>
+            <option value="China">China</option>
+            <option value="Japan">Japan</option>
+            <option value="United States of America">United States of America</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Russia">Russia</option>
+        </select>
+        <input type="text" value="" placeholder="Type or select a country">
+    </div>
+
+    <script>
+        document.querySelector('.select-editable input').addEventListener('input', function(e) {
+            var input = e.target;
+            var select = input.previousElementSibling;
+            for (var option of select.options) {
+                option.hidden = (option.value.substring(0, input.value.length) !== input.value);
+            }
+            select.value = input.value;
+        });
+
+        document.querySelector('.select-editable select').addEventListener('change', function(e) {
+            var select = e.target;
+            var input = select.nextElementSibling;
+            input.value = select.value;
+            for (var option of select.options) {
+                option.hidden = (option.value.substring(0, input.value.length) !== input.value);
+            }
+        });
+    </script>
+
+    <style>
+        .select-editable {
+            position: relative;
+            width: 200px;
+        }
+
+        .select-editable select {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            border: none;
+            font-size: 14px;
+        }
+
+        .select-editable input {
+            position: absolute;
+            top: 1.5px;
+            left: 1.5px;
+            width: calc(100% - 20px);
+            padding: 1px;
+            font-size: 12px;
+            border: none;
+        }
+
+        .select-editable select:focus,
+        .select-editable input:focus {
+            outline: none;
+        }
+    </style>
+</body>
+</html>
+

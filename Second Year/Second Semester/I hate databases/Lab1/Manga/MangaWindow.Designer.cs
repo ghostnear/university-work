@@ -56,7 +56,6 @@
             // 
             this.MangaDataGrid.AllowUserToAddRows = false;
             this.MangaDataGrid.AllowUserToDeleteRows = false;
-            this.MangaDataGrid.AllowUserToOrderColumns = true;
             this.MangaDataGrid.AutoGenerateColumns = false;
             this.MangaDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MangaDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -135,7 +134,6 @@
             // 
             this.MangaCoverDataGrid.AllowUserToAddRows = false;
             this.MangaCoverDataGrid.AllowUserToDeleteRows = false;
-            this.MangaCoverDataGrid.AllowUserToOrderColumns = true;
             this.MangaCoverDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MangaCoverDataGrid.Location = new System.Drawing.Point(10, 295);
             this.MangaCoverDataGrid.Margin = new System.Windows.Forms.Padding(2);

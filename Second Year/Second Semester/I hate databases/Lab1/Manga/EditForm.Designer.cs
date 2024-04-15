@@ -79,8 +79,9 @@
             this.Controls.Add(this.FilePathTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "EditForm";
-            this.Text = "EditForm";
+            this.Text = "Edit";
             this.ResumeLayout(false);
             this.PerformLayout();
 

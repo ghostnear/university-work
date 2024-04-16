@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 initial-zoom=5.0">
+    <title>Editable Country Table</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <table id="editableTable">
+        <!-- Header -->
+        <thead>
+            <tr>
+                <th></th>
+                <th>Country ID</th>
+                <th>Country Name</th>
+                <th>Country Population</th>
+                <th>Country GDP</th>
+                <th>Country Capital</th>
+                <th></th>
+            </tr>
+        </thead>
+        <!-- Data -->
+        <tbody>
+            <tr>
+                <td><button class="delete-row">Delete</button></td>
+                <td><input type="text" value="RO" readonly="true"></td>
+                <td><input type="text" value="Romania" readonly="true"></td>
+                <td><input type="text" value="19 mil." readonly="true"></td>
+                <td><input type="text" value="100 bil." readonly="true">.</td>
+                <td><input type="text" value="Bucharest" readonly="true"></td>
+                <td><button class="add-row">Add</button></td>
+            </tr>
+            <tr>
+                <td><button class="delete-row">Delete</button></td>
+                <td><input type="text" value="UK" readonly="true"></td>
+                <td><input type="text" value="United Kingdom" readonly="true"></td>
+                <td><input type="text" value="66 mil." readonly="true"></td>
+                <td><input type="text" value="2.8 tril." readonly="true"></td>
+                <td><input type="text" value="London" readonly="true"></td>
+                <td><button class="add-row">Add</button></td>
+            </tr>
+            <tr>
+                <td><button class="delete-row">Delete</button></td>
+                <td><input type="text" value="DE" readonly="true"></td>
+                <td><input type="text" value="Germany" readonly="true"></td>
+                <td><input type="text" value="83 mil." readonly="true"></td>
+                <td><input type="text" value="4.2 tril." readonly="true"></td>
+                <td><input type="text" value="Berlin" readonly="true"></td>
+                <td><button class="add-row">Add</button></td>
+            </tr>
+            <tr>
+                <td><button class="delete-row">Delete</button></td>
+                <td><input type="text" value="FR" readonly="true"></td>
+                <td><input type="text" value="France" readonly="true"></td>
+                <td><input type="text" value="67 mil." readonly="true"></td>
+                <td><input type="text" value="2.9 tril." readonly="true"></td>
+                <td><input type="text" value="Paris" readonly="true"></td>
+                <td><button class="add-row">Add</button></td>
+            </tr>
+            <tr>
+                <td><button class="delete-row">Delete</button></td>
+                <td><input type="text" value="IT" readonly="true"></td>
+                <td><input type="text" value="Italy" readonly="true"></td>
+                <td><input type="text" value="60 mil." readonly="true"></td>
+                <td><input type="text" value="2.1 tril." readonly="true"></td>
+                <td><input type="text" value="Rome" readonly="true"></td>
+                <td><button class="add-row">Add</button></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+<script>
+    $(document).ready(function() {
+        // Delete row when left button is clicked
+        $('#editableTable').on('click', '.delete-row', function() {
+            $(this).closest('tr').remove();
+        });
+
+        // Add new row when right button is clicked
+        $('#editableTable').on('click', '.add-row', function() {
+            const newRow = $('<tr>');
+            newRow.append('<td><button class="delete-row">Delete</button></td>');
+            newRow.append('<td><input type="text"></td>'.repeat(5)); // 5 editable cells
+            newRow.append('<td><button class="save-row">Save</button></td>');
+            $('#editableTable tbody').append(newRow);
+        });
+
+        // Make row read-only when all cells are filled
+        $('#editableTable').on('input', 'input', function() {
+            const row = $(this).closest('tr');
+            const allCellsFilled = row.find('input').toArray().every(cell => cell.value.trim() !== '');
+            if (allCellsFilled) {
+                setTimeout(() => row.find('input').prop('readonly', true), 1000);
+            }
+        });
+    });
+</script>
+<style>
+    *:read-only {
+        background-color: #f0f0f0;
+    }
+</style>
+</html>
+

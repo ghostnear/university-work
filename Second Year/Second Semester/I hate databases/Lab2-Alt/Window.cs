@@ -17,14 +17,16 @@ namespace Lab2
         BindingSource parentSource = new BindingSource();
         BindingSource childSource = new BindingSource();
 
-        static string server = ConfigurationManager.AppSettings.Get("server");
-        static string database = ConfigurationManager.AppSettings.Get("database");
-        static string parentTable = ConfigurationManager.AppSettings.Get("parentTable");
-        static string childTable = ConfigurationManager.AppSettings.Get("childTable");
-        static string parentPK = ConfigurationManager.AppSettings.Get("parentPK");
-        static string childFK = ConfigurationManager.AppSettings.Get("childFK");
+        static readonly string server = ConfigurationManager.AppSettings.Get("server");
+        static readonly string database = ConfigurationManager.AppSettings.Get("database");
+        static readonly string parentTable = ConfigurationManager.AppSettings.Get("parentTable");
+        static readonly string childTable = ConfigurationManager.AppSettings.Get("childTable");
+        static readonly string parentPK = ConfigurationManager.AppSettings.Get("parentPK");
+        static readonly string childFK = ConfigurationManager.AppSettings.Get("childFK");
 
-        SqlConnection connection = new SqlConnection("Data Source=" + server + ";Initial Catalog=" + database + ";Integrated Security=SSPI");
+        SqlConnection connection = new SqlConnection(
+            "Data Source=" + server + ";Initial Catalog=" + database + ";Integrated Security=SSPI"
+        );
 
         public Window()
         {
@@ -33,14 +35,14 @@ namespace Lab2
 
         private void Window_Load(object sender, EventArgs e)
         {
-            parentLabel.Text = parentTable;
-            childLabel.Text = childTable;
+            parentLabel.Text = parentTable + " (Parent)";
+            childLabel.Text = childTable + " (Child)";
 
             parentAdapter = new SqlDataAdapter("SELECT * FROM " + parentTable, connection);
             childAdapter = new SqlDataAdapter("SELECT * FROM " + childTable, connection);
 
-            new SqlCommandBuilder(parentAdapter);
-            new SqlCommandBuilder(childAdapter);
+            SqlCommandBuilder parentCommand = new SqlCommandBuilder(parentAdapter);
+            SqlCommandBuilder childCommand = new SqlCommandBuilder(childAdapter);
 
             dataSet.Clear();
             parentAdapter.Fill(dataSet, parentTable);
@@ -68,6 +70,11 @@ namespace Lab2
             {
                 parentAdapter.Update(dataSet, parentTable);
                 childAdapter.Update(dataSet, childTable);
+
+                dataSet.Clear();
+                parentAdapter.Fill(dataSet, parentTable);
+                childAdapter.Fill(dataSet, childTable);
+
                 MessageBox.Show("Changes saved successfully!");
             }
             catch (Exception ex)

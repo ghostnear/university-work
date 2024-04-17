@@ -123,9 +123,11 @@
             // 
             // Window
             // 
-            this.ClientSize = new System.Drawing.Size(595, 565);
+            this.ClientSize = new System.Drawing.Size(594, 574);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "Window";
             this.Text = "Database Viewer";
             this.Load += new System.EventHandler(this.Window_Load);

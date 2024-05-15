@@ -4,7 +4,7 @@
     </div>
 
     <?php
-    if (isset($_SESSION['WeaselNews_loggedin']) && $_SESSION['WeaselNews_loggedin'] == true && ($_SESSION['WeaselNews_userID'] == $row['Producer'] || $_SESSION['WeaselNews_elevation'] == 1)) {
+    if (isset($_SESSION['WeaselNews_loggedin']) && $_SESSION['WeaselNews_loggedin'] == true && ($_SESSION['WeaselNews_elevation'] == 1)) {
         echo '<div class="my-auto ml-auto">
             <a class="text-2xl text-emerald-400 my-auto hover:underline" href="write.php"> Write an article </a>
         </div>';

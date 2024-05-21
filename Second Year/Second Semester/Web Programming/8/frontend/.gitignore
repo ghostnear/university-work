@@ -7,6 +7,7 @@
 /bazel-out
 
 # Node
+.vscode/
 /node_modules
 npm-debug.log
 yarn-error.log

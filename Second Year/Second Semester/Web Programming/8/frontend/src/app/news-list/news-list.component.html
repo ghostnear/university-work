@@ -1,0 +1,14 @@
+@for (news of this.news; track news.ID) {
+    <div class="flex flex-col border-b border-gray-400 py-4">
+        <div class="flex">
+            <a class="text-2xl hover:underline font-bold" href="/article/{{ news.ID }}"> {{ news.Title }} </a>
+            <div class="text-sm my-auto ml-2"> posted in {{ news.Category }} </div>
+            <div class="ml-auto text-sm"> {{ news.Date }}</div>
+        </div>
+        <div class="text-sm"> By {{ news.Producer.Username }} </div>
+    </div>
+} @empty {
+    <div class="text-center text-3xl my-4" role="alert">
+        No news found
+    </div>
+}

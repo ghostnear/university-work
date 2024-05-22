@@ -12,7 +12,7 @@
 
     @if (this.authService.getFromLocalStorage("logged_in") == 'true' && (this.authService.getFromLocalStorage("user_id") == this.article.Producer.ID || this.authService.getFromLocalStorage("elevation") == '1')){
         <div class="ml-auto mt-4">
-            <a class="text-2xl hover:text-emerald-700 text-emerald-400" href="/edit-news/{{ this.article.ID }}"> Edit </a>
+            <a class="text-2xl hover:text-emerald-700 text-emerald-400" href="/edit-article/{{ this.article.ID }}"> Edit </a>
             <a class="ml-4 text-2xl hover:text-red-900 text-red-500" onclick="document.getElementById(`deleteModal`).classList.remove(`hidden`);"> Delete </a>
         </div>
     }

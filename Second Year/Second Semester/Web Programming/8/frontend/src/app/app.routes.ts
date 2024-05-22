@@ -5,6 +5,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { WriteArticlePageComponent } from './write-article-page/write-article-page.component';
 import { ViewArticlePageComponent } from './view-article-page/view-article-page.component';
+import { EditArticlePageComponent } from './edit-article-page/edit-article-page.component';
 
 export const routes: Routes = [
     { path: '', component: IndexPageComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'logout', component: LogoutPageComponent },
     { path: 'write-article', component: WriteArticlePageComponent },
     { path: 'view-article/:id', component: ViewArticlePageComponent },
+    { path: 'edit-article/:id', component: EditArticlePageComponent },
     { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];

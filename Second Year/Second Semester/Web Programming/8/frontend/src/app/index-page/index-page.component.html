@@ -3,7 +3,7 @@
         <div class='text-center font-bold'>Welcome, {{ this.authService.getFromLocalStorage("username") }} let's have a look at the news:</div>
         <a class='hover:underline' href='/articles/filter'>Filter these articles.</a>
     </div>
-    <div class="bg-slate-900 p-4 rounded-b-md shadow-sm w-full text-lg text-white">
+    <div class="bg-slate-900 rounded-b-md shadow-sm w-full text-lg text-white">
         <app-news-list></app-news-list>
     </div>
 }

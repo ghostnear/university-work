@@ -1,5 +1,5 @@
 @for (news of this.news; track news.ID) {
-    <div class="flex flex-col border-b border-gray-400 py-4">
+    <div class="flex flex-col border-b border-gray-400 p-4">
         <div class="flex">
             <a class="text-2xl hover:underline font-bold" href="/view-article/{{ news.ID }}"> {{ news.Title }} </a>
             <div class="text-sm my-auto ml-2"> posted in {{ news.Category }} </div>

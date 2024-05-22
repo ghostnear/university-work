@@ -1,0 +1,19 @@
+<main class="w-1/2 h-full mx-auto flex justify-center flex-col">
+    <h1 class="mx-auto text-4xl mb-3 font-bold">Edit Article</h1>
+
+    <form class="flex flex-col pb-6" [formGroup]="editArticleForm" (ngSubmit)="onSubmit()">
+        <label class="text-2xl mb-2" for="title">Title:</label>
+        <input type="text" name="title" class="bg-slate-800 text-md border border-slate-600 hover:border-white p-2 rounded-md mb-3" formControlName="title">
+        
+        <label class="text-2xl mb-2" for="date">Date:</label>
+        <input type="text" name="date" class="bg-slate-800 text-md border border-slate-600 hover:border-white p-2 rounded-md mb-3" formControlName="date">
+        
+        <label class="text-2xl mb-2" for="category">Category:</label>
+        <input type="text" name="category" class="bg-slate-800 text-md border border-slate-600 hover:border-white p-2 rounded-md mb-3" formControlName="category">
+        
+        <label class="text-2xl mb-2" for="contents">Contents:</label>
+        <textarea class="bg-slate-800 rounded-md border border-slate-600 hover:border-white p-3 mb-4" name="contents" formControlName="contents"></textarea>
+        
+        <input type="submit" class="hover:cursor-pointer bg-slate-800 mx-auto w-1/2 p-3 rounded-md active:bg-slate-600 border border-slate-600 hover:border-white" value="Submit Changes">
+    </form>
+</main>

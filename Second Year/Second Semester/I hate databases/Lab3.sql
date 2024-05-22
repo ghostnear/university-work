@@ -1,4 +1,4 @@
-USE EventDatabaseValidateParticipantUser
+USE EventDatabase
 GO
 
 -- Stuff for 3.
@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER FUNCTION ValidateParticipantUser (@name VARCHAR(20), @age SMALLINT, @facultyID CHAR(10), @groupID CHAR(10))
+CREATE OR ALTER FUNCTION ValidateParticipantUser (@name VARCHAR(20), @age SMALLINT, @organisationID CHAR(10), @participantsID CHAR(10))
 RETURNS INT AS
 BEGIN
 	DECLARE @returnValue INT
@@ -25,26 +25,26 @@ BEGIN
 	-- Minors not allowed.
 	IF (@age < 18)
 	SET @returnValue = 0
-	IF (@facultyID NOT IN (SELECT oid FROM Organizers))
+	IF (@organisationID NOT IN (SELECT oid FROM Organizers))
 	SET @returnValue = 0
-	IF (@groupID NOT IN (SELECT did FROM Departments))
+	IF (@participantsID NOT IN (SELECT pid FROM Participants))
 	SET @returnValue = 0
 	RETURN @returnValue
 END
 GO
 
-CREATE OR ALTER PROCEDURE AddParticipantForSpecial @participantName VARCHAR(20), @participantAge SMALLINT, @participantoid CHAR(10), @participantDID CHAR(10), @specialeventName VARCHAR(20), @specialeventDescription VARCHAR(50), @specialeventDate DATE, @specialeventLocation VARCHAR(20)
+CREATE OR ALTER PROCEDURE AddParticipantForSpecial @participantName VARCHAR(20), @participantAge SMALLINT, @participantid CHAR(10), @participantDID CHAR(10), @specialeventName VARCHAR(20), @specialeventDescription VARCHAR(50), @specialeventDate DATE, @specialeventLocation VARCHAR(20)
 AS
 BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
-		IF (dbo.ValidateParticipantUser(@participantName, @participantAge, @participantoid, @participantDID) <> 1)
+		IF (dbo.ValidateParticipantUser(@participantName, @participantAge, @participantid, @participantDID) <> 1)
 		BEGIN
 			RAISERROR('Invalid participant', 14, 1)
 		END
 		DECLARE @participantID CHAR(10)
 		SET @participantID = CAST((CAST((SELECT TOP 1 vid FROM Participants ORDER BY vid DESC) AS INT) + 1) AS CHAR(10))
-		INSERT INTO Participants VALUES (@participantID, @participantName, @participantAge, @participantoid, @participantDID)
+		INSERT INTO Participants VALUES (@participantID, @participantName, @participantAge, @participantid, @participantDID)
 
 		IF (dbo.ValidateEvent(@specialeventName, @specialeventDescription, @specialeventDate, @specialeventLocation) <> 1)
 		BEGIN
@@ -123,7 +123,7 @@ BEGIN
 END
 GO
 
-EXEC AddParticipantForSpecial_Individually 'AddParticipantForSpecial_Individually', 20, '11', '1', 'Thing', 'insert description here', '2015-10-27', 'Bistrita'
+EXEC AddParticipantForSpecial_Individually 'random', 20, '11', '1', 'Thing', 'insert description here', '2015-10-27', 'Bistrita'
 GO
 EXEC AddParticipantForSpecial_Individually 'New participant2', 11, '11', '1', 'Thing', 'insert description here', '2023-10-27', 'Suceava'
 GO

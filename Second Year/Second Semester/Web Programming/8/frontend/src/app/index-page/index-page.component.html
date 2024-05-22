@@ -1,4 +1,4 @@
-@if(this.authService.getFromLocalStorage("logged_in") == "true" && this.authService.getFromLocalStorage("elevation") == "1") {
+@if(this.authService.getFromLocalStorage("logged_in") == "true") {
     <div class="bg-slate-900 p-4 rounded-t-md shadow-sm border-b w-full text-lg text-white">
         <div class='text-center font-bold'>Welcome, {{ this.authService.getFromLocalStorage("username") }} let's have a look at the news:</div>
         <a class='hover:underline' href='/articles/filter'>Filter these articles.</a>

@@ -4,11 +4,13 @@ import { IndexPageComponent } from './index-page/index-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { WriteArticlePageComponent } from './write-article-page/write-article-page.component';
+import { ViewArticlePageComponent } from './view-article-page/view-article-page.component';
 
 export const routes: Routes = [
     { path: '', component: IndexPageComponent },
     { path: 'login', component: LoginPageComponent },
     { path: 'logout', component: LogoutPageComponent },
-    { path: 'article/write', component: WriteArticlePageComponent },
+    { path: 'write-article', component: WriteArticlePageComponent },
+    { path: 'view-article/:id', component: ViewArticlePageComponent },
     { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
 ];

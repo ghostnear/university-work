@@ -11,20 +11,8 @@ import { NewsListComponent } from '../news-list/news-list.component';
   templateUrl: './index-page.component.html'
 })
 export class IndexPageComponent {
-
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private httpClient: HttpClient)
+  constructor(public authService: AuthService)
   {
 
-  }
-
-  ngOnInit() {
-    this.authService.refresh(this.httpClient);
-    if(this.authService.getFromLocalStorage("logged_in")== "false") {
-      // Redirect to login page
-      this.router.navigate(['/login/']);
-    }
   }
 }

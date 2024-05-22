@@ -1,12 +1,27 @@
-@if(this.authService.getFromLocalStorage("logged_in") == "true") {
-    <div class="bg-slate-900 p-4 rounded-t-md shadow-sm border-b w-full text-lg text-white">
-        <div class='text-center font-bold'>Welcome, {{ this.authService.getFromLocalStorage("username") }} let's have a look at the news:</div>
-        <a class='hover:underline' href='/articles/filter'>Filter these articles.</a>
-    </div>
-    <div class="bg-slate-900 rounded-b-md shadow-sm w-full text-lg text-white">
-        <app-news-list></app-news-list>
-    </div>
-}
+<div class="flex flex-col bg-slate-900 p-4 rounded-t-md shadow-sm border-b w-full text-lg text-white">
+    <div class='text-center font-bold'>Welcome, {{ this.authService.getFromLocalStorage("username") }} let's have a look at the news:</div>
+    @if(this.filterArgs.category || this.filterArgs.startDate || this.filterArgs.endDate) {
+        @if(this.filterArgs.category)
+        {
+            <span class='text-lg'>Filtering by category: {{ this.filterArgs.category }}</span>
+        }
+        @if(this.filterArgs.startDate)
+        {
+            <span class='text-lg'>Filtering by date start: {{ this.filterArgs.startDate }}</span>
+        }
+        @if(this.filterArgs.endDate)
+        {
+            <span class='text-lg'>Filtering by date end: {{ this.filterArgs.endDate }}</span>
+        }
+        <a class='hover:underline font-bold' href='/'>Show all articles.</a>
+    }
+    @else {
+        <a class='hover:underline' href='/filter-article'>Filter these articles.</a>
+    }
+</div>
+<div class="bg-slate-900 rounded-b-md shadow-sm w-full p-4 pt-0 text-lg text-white">
+    <app-news-list [filterArgs]=this.filterArgs></app-news-list>
+</div>
 <!--?php
     if(!isset($_POST["category"]) && !isset($_POST["date-start"]) && !isset($_POST["date-end"]))
     {
@@ -70,4 +85,3 @@
         echo "<a class='w-full hover:underline text-center text-white text-lg mt-4' href='index.php'>Go back to all news.</a>";
     }
 ?>-->
-    

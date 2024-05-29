@@ -1,0 +1,87 @@
+<div class="flex flex-col bg-slate-900 p-4 rounded-t-md shadow-sm border-b w-full text-lg text-white">
+    <div class='text-center font-bold'>Welcome, {{ this.authService.getFromLocalStorage("username") }} let's have a look at the news:</div>
+    @if(this.filterArgs.category || this.filterArgs.startDate || this.filterArgs.endDate) {
+        @if(this.filterArgs.category)
+        {
+            <span class='text-lg'>Filtering by category: {{ this.filterArgs.category }}</span>
+        }
+        @if(this.filterArgs.startDate)
+        {
+            <span class='text-lg'>Filtering by date start: {{ this.filterArgs.startDate }}</span>
+        }
+        @if(this.filterArgs.endDate)
+        {
+            <span class='text-lg'>Filtering by date end: {{ this.filterArgs.endDate }}</span>
+        }
+        <a class='hover:underline font-bold' href='/'>Show all articles.</a>
+    }
+    @else {
+        <a class='hover:underline' href='/filter-article'>Filter these articles.</a>
+    }
+</div>
+<div class="bg-slate-900 rounded-b-md shadow-sm w-full p-4 pt-0 text-lg text-white">
+    <app-news-list [filterArgs]=this.filterArgs></app-news-list>
+</div>
+<!--?php
+    if(!isset($_POST["category"]) && !isset($_POST["date-start"]) && !isset($_POST["date-end"]))
+    {
+        echo "<div class='flex justify-center items-center w-full h-12 bg-slate-900 shadow-sm rounded-t-md text-white text-lg font-bold'>Welcome, " . $_SESSION['WeaselNews_username'] . " let's have a look at the news:" . "</div>";
+        echo "<a class='w-full hover:underline h-12 bg-slate-900 rounded-b-md shadow-sm text-white text-lg px-4 mb-3' href='filter.php'>Filter these articles.</a>";
+        include("component/newslist.php");
+    }
+    else {
+        include('service/database.php');
+
+        $category = $_POST["category"];
+        $dateStart = $_POST["date-start"];
+        if($dateStart == "")
+            $dateStart = "1970-01-01";
+        $dateEnd = $_POST["date-end"];
+        if($dateEnd == "")
+            $dateEnd = date("Y-m-d", time());
+
+        if($category != "")
+        {
+            echo '<span class="text-lg">Filtering by category: ' . $category . '</span>';
+        }
+        if($dateStart != "1970-01-01")
+        {
+            echo '<span class="text-lg">Filtering by date start: ' . $dateStart . '</span>';
+        }
+        if($dateEnd != date("Y-m-d", time()))
+        {
+            echo '<span class="text-lg">Filtering by date end: ' . $dateEnd . '</span>';
+        }
+        
+        if($category == "") {
+            $sql = "SELECT * FROM News WHERE date BETWEEN '$dateStart' AND '$dateEnd' ORDER BY date DESC";
+        }
+        else {
+            $sql = "SELECT * FROM News WHERE category = '$category' AND date BETWEEN '$dateStart' AND '$dateEnd' ORDER BY date DESC";
+        }
+    
+        $result = mysqli_query($connection, $sql);
+    
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $sqlUser = "SELECT * FROM Users WHERE id = " . $row['producer'];
+    
+                $resultUser = mysqli_query($connection, $sqlUser);
+                $rowUser = mysqli_fetch_assoc($resultUser);
+    
+                echo '<div class="flex flex-col border-b border-gray-400 py-4">';
+                echo '<div class="flex">';
+                echo '<a class="text-2xl hover:underline font-bold" href="news.php?id=' . $row['id'] . '">' . $row['title'] . '</a>';
+                echo '<div class="text-sm my-auto ml-2"> posted in ' . $row['category'] . '</div>';
+                echo '<div class="ml-auto text-sm">' . $row['date'] . '</div>';
+                echo '</div>';
+                echo '<div class="text-sm"> By ' . $rowUser['username'] . '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo '<div class="text-2xl text-center"> No news available. </div>';
+        }
+
+        echo "<a class='w-full hover:underline text-center text-white text-lg mt-4' href='index.php'>Go back to all news.</a>";
+    }
+?>-->

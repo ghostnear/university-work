@@ -1,0 +1,19 @@
+<header class="flex w-full py-4 border-b px-6 shadow-lg">
+    <div class="my-auto">
+        <a href="/" class="text-4xl"> Weasel News </a>
+    </div>
+
+    @if (this.authService.getFromLocalStorage("logged_in") == "true" && this.authService.getFromLocalStorage("elevation") == "1") {
+        <div class="my-auto ml-auto">
+            <a class="text-2xl text-emerald-400 my-auto hover:underline" href="/write-article"> Write an article </a>
+        </div>
+    }
+
+    <div class="ml-auto"></div>
+
+    <div class="my-auto">
+        @if (this.authService.getFromLocalStorage("logged_in") == 'true') {
+            <a class="text-2xl ml-6 hover:underline" href="/logout"> Log Out </a>
+        }
+    </div>
+</header>

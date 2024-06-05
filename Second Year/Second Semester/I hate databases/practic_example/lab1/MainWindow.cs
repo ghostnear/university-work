@@ -64,6 +64,10 @@ namespace Lab1
             builder.GetInsertCommand();
             dataAdapterChild.Update(dataSet, Secondary_Table);
             dataAdapterMain.Update(dataSet, Main_Table);
+
+            dataSet.Clear();
+            dataAdapterMain.Fill(dataSet, Main_Table);
+            dataAdapterChild.Fill(dataSet, Secondary_Table);
         }
     }
 }

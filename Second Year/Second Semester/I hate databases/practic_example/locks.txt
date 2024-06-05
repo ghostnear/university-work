@@ -1,0 +1,9 @@
+Shared locks:
+
+Read Commited, Repeatable Reads, Serializable for SELECTS and stuff
+
+Exclusive locks:
+
+All for UPDATE / DELETE
+
+

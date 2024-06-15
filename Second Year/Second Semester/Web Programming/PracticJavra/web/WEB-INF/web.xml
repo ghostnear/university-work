@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>webubb.controller.LoginController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DocumentsController</servlet-name>
+        <servlet-class>webubb.controller.DocumentsController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>MoviesController</servlet-name>
+        <servlet-class>webubb.controller.MoviesController</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DocumentsController</servlet-name>
+        <url-pattern>/DocumentsController</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>MoviesController</servlet-name>
+        <url-pattern>/MoviesController</url-pattern>
+    </servlet-mapping>
+</web-app>

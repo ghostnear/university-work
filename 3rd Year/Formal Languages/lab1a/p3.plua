@@ -1,0 +1,14 @@
+function maxArray(n, array) {
+    local max = array[1]
+    for i = 2, n, 1 {
+        if array[i] > max {
+            max = array[i]
+        }
+    }
+    return max 
+}
+
+function main(argc, argv) {
+    local array = {1, 3, 2}
+    print(maxArray(3, array))
+}

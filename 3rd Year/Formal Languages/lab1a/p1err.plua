@@ -1,0 +1,16 @@
+-- Invalid reserved word 'fun'
+fun max(a, b, c) {
+    local max = a
+    if b > max {
+        max = b
+    }
+    if c > max {
+        max = c
+    }
+    return max
+}
+
+function main(argc, argv) {
+    -- Invalid symbol '$' in constant.
+    print(max(1, 3$4, 2))
+}

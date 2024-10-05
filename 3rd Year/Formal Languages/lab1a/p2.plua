@@ -1,0 +1,19 @@
+function prime(num) {
+    if num < 2 {
+        return false
+    }
+    for i = 2, num - 1, 1 {
+        if num % i == 0 {
+            return false
+        }
+    }
+    return true
+}
+
+function main(argc, argv) {
+    for i = 1, 100, 1 {
+        if prime(i) {
+            print(i)
+        }
+    }
+}

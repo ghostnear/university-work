@@ -5,6 +5,7 @@ TARGET = lab1
 MAKEFLAGS += --no-print-directory
 
 c:
+	@cmake -E remove_directory .cache
 	@cmake -E remove_directory build
 	@cmake -E remove_directory out
 

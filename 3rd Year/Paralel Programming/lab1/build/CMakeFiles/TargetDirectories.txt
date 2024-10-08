@@ -1,7 +1,0 @@
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/lab1.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/edit_cache.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/rebuild_cache.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/list_install_components.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/install.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/install/local.dir
-/home/ghostnear/Documents/university-work/3rd Year/Paralel Programming/lab1/build/CMakeFiles/install/strip.dir

@@ -1,0 +1,39 @@
+Description:
+    A simplified version of Lua that uses {} instead of then ... end
+
+Alphabet:
+    a. Upper (A-Z) and lower case letters (a-z) of the English alphabet.
+    b. Underline character '_'.
+    c. Decimal digits (0-9).
+
+Lexic:
+    a. Special symbols:
+        - operators
+            # + - * / % ^ == ~= < <= = >= >
+        - separators
+            [ ] { }  : ; (whitespaces)
+        - reserved words:
+            function, if, else, elseif, while, local, return, true, false, nil, and, or, not
+
+    b. Identifiers:
+        - a sequence of letters and  digits, such that the first character is a letter; the rules are:
+            identifier := letter | letter{letter | digit | underscore} | underscore | underscore{letter | digit | underscore}
+            letter := "A" | "B" | . ..| "Z"
+            underscore := "_"
+            digit := "0" | "1" |...| "9"
+            listofidentifiers := identifier{, identifier}
+
+    c. Constants:
+        1. Integer:
+            constantnumber := 0 | "+"number | "-"number | number
+            number := digitwithoutzero{digit}
+            digitwithoutzero := "1" |...| "9"
+        2. Character:
+            character := 'letter'|'digit'
+        3. String:
+            constchar := "string"
+            string := char{char}
+            char := letter | digit | underscore
+        4. Table:
+            tablecontents := {{listofidentifiers | constantnumber | character | constchar}}
+        5. Functions (see syntax)

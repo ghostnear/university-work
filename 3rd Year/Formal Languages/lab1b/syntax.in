@@ -1,0 +1,20 @@
+program ::= ({cmpdstmt} | globalfnctlist) | (cmpdstmt | {globalfnctlist})
+newline ::= '\n'
+globalfnctlist ::= functiondecl | functiondecl newline globalfnctlist
+assignable ::= {CONSTANT | tabledecl | functiondecl | expression}
+assigndecl ::= IDENTIFIER "=" assignable
+tabledecl ::= "{" {IDENTIFIER ":"} assignable "}"
+functiondecl ::= "function" {IDENTIFIER} "(" LISTOFIDENTIFIERS ")" cmpdstmt
+cmpdstmt ::= {"{"} stmtlist {"}"}
+stmtlist ::= stmt | stmt newline stmtlist
+stmt ::= simplstmt | structstmt
+simplstmt ::= assigndecl | iostmt
+expression ::= expression ("+" | "-") term | term
+term ::= term ("*" | "/") factor | factor
+factor ::= "(" expression ")" | IDENTIFIER
+iostmt ::= "read" | "print" "(" IDENTIFIER ")"
+structstmt ::= cmpdstmt | ifstmt | whilestmt
+ifstmt ::= "if" condition cmpdstmt {"elseif" condition cmpdstmt} ["else" cmpdstmt]
+whilestmt ::= "while" condition cmpdstmt
+condition ::= expression relation expression
+relation ::= "<" | "<=" | "=" | ">=" | ">" | "~="

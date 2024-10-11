@@ -9,9 +9,7 @@ function max(a, b, c) {
     return max
 }
 
-function main(argc, argv) {
-    print(max(1, 3, 2))
-}
+print(max(1, 3, 2))
 
 -- This is basically Lua with parantheses.
 -- Reserved words for now: local, function, main, return, if

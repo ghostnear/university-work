@@ -49,19 +49,15 @@ uint32_t euclid_gcd(uint32_t first, uint32_t second)
 
 BigNumber* big_gcd(BigNumber* first, BigNumber* second)
 {
-    if(compare_number(first, second))
+    while(!equal_number(first, second))
     {
-        BigNumber* aux = first;
-        first = second;
-        second = aux;
-    }
-
-    while(second->size != 0)
-    {
-        if(compare_number(first, second))
-            subtract_number(first, second);
-        else
-            subtract_number(second, first);
+        if(!compare_number(first, second))
+        {
+            BigNumber* aux = first;
+            first = second;
+            second = aux;
+        }
+        subtract_number(first, second);
     }
 
     return first;

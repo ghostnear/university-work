@@ -1,0 +1,86 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build",
+            "installDir": "${sourceDir}/out",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "windows-base",
+            "inherits": "default",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "CMAKE_BUILD_PLATFORM": "WINDOWS",
+                "CMAKE_BUILD_ARCH": "x64"
+            } 
+        },
+        {
+            "name": "windows-debug",
+            "inherits": "windows-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "windows-release",
+            "inherits": "windows-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "unix-base",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_PLATFORM": "UNIX",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_BUILD_ARCH": "x64"
+            } 
+        },
+        {
+            "name": "unix-debug",
+            "inherits": "unix-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "unix-release",
+            "inherits": "unix-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "vita-base",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_PLATFORM": "VITA",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_BUILD_ARCH": "armv7"
+            } 
+        },
+        {
+            "name": "vita-debug",
+            "inherits": "vita-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "vita-release",
+            "inherits": "vita-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ]
+}

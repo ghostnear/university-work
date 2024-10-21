@@ -35,4 +35,4 @@ bwr:
 rw: bwr
 	@./out/bin/${TARGET}
 
-r: rw
+r: ru

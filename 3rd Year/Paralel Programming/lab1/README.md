@@ -1,10 +1,32 @@
 # Lab 1
 
-### For week 4:
+I have chosen problem 2.
 
-Choose one:
+For the sake of simplicity, the accounts can go into debt.
 
-#### 1. Supermarket inventory:
+The results for running the benchmarks are [here](./BENCHMARKS.md).
+
+### For week 4.
+
+## Common requirements
+
+The problems will require to execute a number of independent operations, that operate on shared data.
+
+There shall be several threads launched at the beginning, and each thread shall execute a lot of operations.
+
+The operations to be executed are to be randomly choosen, and with randomly choosen parameters.
+
+The main thread shall wait for all other threads to end and, then, it shall check that the invariants are obeyed.
+
+The operations must be synchronized in order to operate correctly. Write, in a documentation, the rules (which mutex what invariants it protects).
+
+You shall play with the number of threads and with the granularity of the locking, in order to asses the performance issues.
+
+Document what tests have you done, on what hardware platform, for what size of the data, and what was the time consumed. 
+
+## Choose one:
+
+### 1. Supermarket inventory:
 
 There are several types of products, each having a known, constant, unit price. In the begining, we know the quantity of each product.
 
@@ -16,7 +38,7 @@ From time to time, as well as at the end, an inventory check operation shall be 
 
 Two sales involving distinct products must be able to update their quantities independently (without having to wait for the same mutex).
 
-#### 2. Bank accounts
+### 2. Bank accounts
 
 At a bank, we have to keep track of the balance of some accounts. Also, each account has an associated log (the list of records of operations performed on that account). Each operation record shall have a unique serial number, that is incremented for each operation performed in the bank.
 
@@ -26,7 +48,7 @@ From time to time, as well as at the end of the program, a consistency check sha
 
 Two transaction involving distinct accounts must be able to proceed independently (without having to wait for the same mutex).
 
-#### 3. Summation with fixed structure of inputs
+### 3. Summation with fixed structure of inputs
 
 We have to keep the values of some integer variables. Some of them are primary variables; they represent input data. The others are secondary variables, and represent aggregations of some other variables. In our case, each secondary variable is a sum of some input variables. The inputs may be primary or secondary variables. However, we assume that the relations do not form cycles.
 

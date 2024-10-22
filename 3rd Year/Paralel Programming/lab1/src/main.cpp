@@ -89,15 +89,31 @@ int main(int argc, char* argv[])
     auto duration = duration_cast<milliseconds>(end - start);
     std::cout << "Simulating the transactions took " << duration << ".\n";
 
+    // Final consistency check.
     for(auto index = 0u; index < CLIENTS_COUNT; index++)
     {
         int32_t balance = 0;
         for(auto logIndex = 0u; logIndex < data[index].log.size(); logIndex++)
-            balance += data[index].log[logIndex].difference;
+        {
+            const auto& logEntry = data[index].log[logIndex];
+            balance += logEntry.difference;
+            
+            bool found = false;
+            const auto& other = data[logEntry.other];
+            for(auto otherIndex = 0u; otherIndex < other.log.size() && !found; otherIndex++)
+                if(other.log[otherIndex].other == index && other.log[otherIndex].id == logEntry.id && other.log[otherIndex].difference == -logEntry.difference)
+                    found = true;
+            
+            if(!found)
+            {
+                std::cout << "ERROR: Mismatch in logs has been found! Missing transaction.\n\n";
+                return EXIT_FAILURE;
+            }
+        }
         
         if(balance != data[index].balance)
         {
-            std::cout << "ERROR: Mismatch in logs has been found!\n\n";
+            std::cout << "ERROR: Mismatch in logs has been found! Wrong balance at the end of the transactions.\n\n";
             return EXIT_FAILURE;
         }
     }

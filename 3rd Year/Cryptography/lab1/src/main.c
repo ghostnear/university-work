@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
         start_timing();
         index = SAMPLE_SIZE;
         while(index--)
-            results[index][1] = binary_gcd(first_number[index], second_number[index]);
+            results[index][1] = euclid_gcd(first_number[index], second_number[index]);
         end_timing();
         result_secs[sample][1] = get_passed_time_secs();
         result_secs[SAMPLE_COUNT][1] = (result_secs[SAMPLE_COUNT][1] < result_secs[sample][1]) ? result_secs[sample][1] : result_secs[SAMPLE_COUNT][1];

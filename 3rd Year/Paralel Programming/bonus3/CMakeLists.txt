@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(bonus2)
+project(bonus3)
 
 file(
     GLOB_RECURSE

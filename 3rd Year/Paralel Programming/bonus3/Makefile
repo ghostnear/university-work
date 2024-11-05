@@ -1,6 +1,6 @@
 .PHONEY: all
 
-TARGET = bonus2
+TARGET = bonus3
 
 MAKEFLAGS += --no-print-directory
 

@@ -1,4 +1,4 @@
-# Lab 1
+# Lab 2
 
 ### Problem numero 10
 Algorithm for determining all generators of the cyclic group (Zn, +), where n ≥ 2 is a natural

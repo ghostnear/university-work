@@ -106,9 +106,13 @@ void Scanner::read_input(std::string input_path)
         if(!std::isalpha(token[0]))
         {
             // Might be number.
-            for(auto index = (token[0] == '-') ? 1u : 0u; index < token.size(); index++)
+            uint32_t start = (token[0] == '-') ? 1u : 0u;
+            for(auto index = start; index < token.size(); index++)
                 if(!isdigit(token[index]))
                     throw std::runtime_error("Number contains non-letter character: " + token);
+            
+            if(token[start] == '0')
+                throw std::runtime_error("Number cannot start with digit 0.");
 
             // It's a number.
             type = PIFType::CONSTANT;

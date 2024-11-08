@@ -8,4 +8,6 @@ a. Unique for identifiers and constants (create one instance of ST).
 
 ## 2. Symbol Table (you need to implement the data structure and required operations):
 
-a. Unsorted table.
+HashTable
+
+#### [Documentation](./DOC.md)

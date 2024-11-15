@@ -8,7 +8,7 @@
 #include <string>
 #include <utility>
 
-Scanner::Scanner(std::string token_path)
+Scanner::Scanner(std::string token_path, Lexer& number_fa, Lexer& symbol_fa) : number_fa(number_fa), symbol_fa(symbol_fa)
 {
     // Read all tokens.
     std::ifstream fin(token_path);
@@ -102,47 +102,40 @@ void Scanner::read_input(std::string input_path)
             continue;
         }
 
-        // Check if the symbol respects the specs.
-        if(!std::isalpha(token[0]))
+        // Check if it is a number.
+        if(number_fa.check(token))
         {
-            // Might be number.
-            uint32_t start = (token[0] == '-') ? 1u : 0u;
-            for(auto index = start; index < token.size(); index++)
-                if(!isdigit(token[index]))
-                    throw std::runtime_error("Number contains non-letter character: " + token);
-            
-            if(token[start] == '0')
-                throw std::runtime_error("Number cannot start with digit 0.");
-
             // It's a number.
             type = PIFType::CONSTANT;
             arg = token;
+            continue;
+        }
+
+        // Check if it can be a symbol.
+        if(symbol_fa.check(token))
+        {
+            type = PIFType::SYMBOL;
+            arg = "";
+            for(uint32_t index = 0; index < sym_id; index++)
+            {
+                std::string value = any_to_string(symbols.get(std::to_string(index)));
+                if(value == token)
+                {
+                    arg = std::to_string(index);
+                    break;
+                }
+            }
+            if(arg == "")
+            {
+                arg = std::to_string(sym_id);
+                symbols.add(std::to_string(sym_id), token);
+                sym_id++;            
+            }
             PIF.push_back(std::make_pair(type, arg));
             continue;
         }
 
-        for(auto character : token)
-            if(!std::isalnum(character))
-                throw std::runtime_error("Symbol contains non-alphanumerical character: " + token);
-
-        type = PIFType::SYMBOL;
-        arg = "";
-        for(uint32_t index = 0; index < sym_id; index++)
-        {
-            std::string value = any_to_string(symbols.get(std::to_string(index)));
-            if(value == token)
-            {
-                arg = std::to_string(index);
-                break;
-            }
-        }
-        if(arg == "")
-        {
-            arg = std::to_string(sym_id);
-            symbols.add(std::to_string(sym_id), token);
-            sym_id++;            
-        }
-        PIF.push_back(std::make_pair(type, arg));
+        throw std::runtime_error("Invalid token found: " + token);
     }
 }
 

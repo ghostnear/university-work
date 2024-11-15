@@ -1,6 +1,7 @@
 #pragma once
 
 #include "symbol_table.hpp"
+#include "lang/lexer.hpp"
 
 class Scanner
 {
@@ -18,9 +19,10 @@ private:
     SymbolTable symbols;
     std::vector<std::string> token_list;
     std::vector<std::pair<PIFType, std::string>> PIF;
+    Lexer& number_fa, &symbol_fa;
     
 public:
-    Scanner(std::string token_path);
+    Scanner(std::string token_path, Lexer& number_fa, Lexer& symbol_fa);
     void read_input(std::string input_path);
     void log_pif(std::string output_path);
     void log_symbol_table(std::string output_path);

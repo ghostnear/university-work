@@ -1,40 +1,8 @@
 #include "lang/scanner.hpp"
-#include "lang/lexer.hpp"
+#include "fa-showcase.hpp"
 #include <cstdlib>
 #include <fstream>
 #include <cstring>
-
-int fa_showcase()
-{
-    while(true)
-    {
-        std::cout << "\n1. Inspect digits finite-automata.\n";
-        std::cout << "0. Exit app.\n";
-        std::cout << "\nCommand > ";
-        int command = 0;
-        std::string sequence = "";
-        Lexer number_lexer("./inputs/FA-number.in");
-        std::cin >> command;
-        switch(command)
-        {
-        case 1:
-            std::cout << "\n" << number_lexer.to_stream().str() << "\n";
-            std::cout << "Reading sequence for testing > ";
-            std::cin >> sequence;
-            std::cout << ((number_lexer.check(sequence)) ? "\nSequence is valid.\n" : "\nSequence is invalid.\n");
-            break;
-        case 0:
-            std::cout << "\nExiting app...\n\n";
-            return EXIT_SUCCESS;
-            break;
-        default:
-            std::cout << "\nUnknown command entered.\n";
-            break;
-        }
-    }
-
-    return EXIT_SUCCESS;
-}
 
 int main(int argc, char* argv[])
 {
@@ -44,7 +12,9 @@ int main(int argc, char* argv[])
     if(strcmp(argv[1], "fa-showcase") == 0)
         return fa_showcase();
 
-    Scanner scanner = Scanner(std::string(argv[1]));
+    Lexer number_fa("./inputs/FA-number.in");
+    Lexer symbol_fa("./inputs/FA-symbol.in");
+    Scanner scanner = Scanner(std::string(argv[1]), number_fa, symbol_fa);
     try
     {
         scanner.read_input(std::string(argv[2]));

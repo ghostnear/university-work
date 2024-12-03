@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ghostnear/Github/university-work/3rd Year/Paralel Programming/lab4/lab4.csproj": {}
+    "/home/ghostnear/Github/university-work/3rd Year/Cryptography/lab4/lab4.csproj": {}
   },
   "projects": {
-    "/home/ghostnear/Github/university-work/3rd Year/Paralel Programming/lab4/lab4.csproj": {
+    "/home/ghostnear/Github/university-work/3rd Year/Cryptography/lab4/lab4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ghostnear/Github/university-work/3rd Year/Paralel Programming/lab4/lab4.csproj",
+        "projectUniqueName": "/home/ghostnear/Github/university-work/3rd Year/Cryptography/lab4/lab4.csproj",
         "projectName": "lab4",
-        "projectPath": "/home/ghostnear/Github/university-work/3rd Year/Paralel Programming/lab4/lab4.csproj",
+        "projectPath": "/home/ghostnear/Github/university-work/3rd Year/Cryptography/lab4/lab4.csproj",
         "packagesPath": "/home/ghostnear/.nuget/packages/",
-        "outputPath": "/home/ghostnear/Github/university-work/3rd Year/Paralel Programming/lab4/obj/",
+        "outputPath": "/home/ghostnear/Github/university-work/3rd Year/Cryptography/lab4/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ghostnear/.nuget/NuGet/NuGet.Config"

@@ -1,76 +1,48 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-
-namespace Main
+﻿namespace HttpDownloaderApp
 {
-    public static class Program
+    class Program
     {
-        public static void Main()
+        static async Task Main(string[] args)
         {
-            var entry = Dns.GetHostEntry(State.Host);
-            var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            var endpoint = new IPEndPoint(entry.AddressList[0], State.Port);
-            var state = new State(socket);
-            state.Socket.BeginConnect(endpoint, ConnectCallback, state);
-            state.ReceiveDone.WaitOne();
-            state.Socket.Close();
-        }
-
-        private static void ConnectCallback(IAsyncResult ar)
-        {
-            var state = (State)ar.AsyncState;
-            state.Socket.EndConnect(ar);
-            state.ConnectDone.Set();
-            var requestText = $"GET /documente-utile/ HTTP/1.1\r\nHost: {State.Host}\r\n\r\n";
-            var requestBytes = Encoding.UTF8.GetBytes(requestText);
-            state.Socket.BeginSend(requestBytes, 0, requestBytes.Length, SocketFlags.None, SendCallback, state);
-        }
-
-        private static void SendCallback(IAsyncResult ar)
-        {
-            var state = (State)ar.AsyncState;
-            var bytesSent = state.Socket.EndSend(ar);
-            state.SendDone.Set();
-            state.Socket.BeginReceive(state.Buffer, 0, State.BufferLength, SocketFlags.None, ReceiveCallback, state);
-        }
-
-        private static void ReceiveCallback(IAsyncResult ar)
-        {
-            var state = (State)ar.AsyncState;
-            var bytesReceived = state.Socket.EndReceive(ar);
-            if (bytesReceived == 0)
+            if (args.Length < 2)
             {
-                Console.WriteLine(state.Content.ToString());
-                state.ReceiveDone.Set();
+                Console.WriteLine("Usage: HttpDownloaderApp <url> <fileName> <method>");
+                Console.WriteLine("Methods: event-driven, task-based, async-await");
+                return;
+            }
+
+            string url = args[0];
+            string fileName = args[1];
+            string method = args[2];
+
+            if (method == "event-driven")
+            {
+                HttpDownloaderEventDriven downloader = new();
+                downloader.DownloadFile(url, fileName);
+                Thread.Sleep(1000); // Wait to make sure that the download ends.
+                if(downloader.Result != null)
+                    Console.WriteLine(downloader.Result);
+                else
+                    Console.WriteLine("Failed to download file.");
+            }
+            else if (method == "task-based")
+            {
+                string result = await HttpDownloaderTaskBased.DownloadFileAsync(url, fileName);
+                if(result != null)
+                    Console.WriteLine(result);
+                else
+                    Console.WriteLine("Failed to download file.");
+            }
+            else if (method == "async-await")
+            {
+                string result = await HttpDownloaderAsyncAwait.DownloadFileAsync(url, fileName);
+                if(result != null)
+                    Console.WriteLine(result);
+                else
+                    Console.WriteLine("Failed to download file.");
             }
             else
-            {
-                var responseText = Encoding.UTF8.GetString(state.Buffer, 0, bytesReceived);
-                state.Content.Append(responseText);
-                state.Socket.BeginReceive(state.Buffer, 0, State.BufferLength, SocketFlags.None, ReceiveCallback,
-                    state);
-            }
-        }
-
-        public sealed class State
-        {
-            public const string Host = "www.cnatdcu.ro";
-            public const int Port = 80;
-            public const int BufferLength = 1024;
-            public readonly byte[] Buffer = new byte[BufferLength];
-            public readonly ManualResetEvent ConnectDone = new ManualResetEvent(false);
-            public readonly StringBuilder Content = new StringBuilder();
-            public readonly ManualResetEvent ReceiveDone = new ManualResetEvent(false);
-            public readonly ManualResetEvent SendDone = new ManualResetEvent(false);
-            public readonly Socket Socket;
-
-            public State(Socket socket)
-            {
-                Socket = socket;
-            }
+                Console.WriteLine("Unknown method: " + method);
         }
     }
 }

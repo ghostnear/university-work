@@ -60,12 +60,8 @@ namespace HttpDownloaderApp
         {
             string headers = response.Split(headerSeparator, StringSplitOptions.None)[0];
             foreach (string line in headers.Split(separator, StringSplitOptions.None))
-            {
                 if (line.StartsWith("Content-Length: "))
-                {
                     return int.Parse(line[16..]);
-                }
-            }
             return 0;
         }
     }

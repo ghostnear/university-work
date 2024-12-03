@@ -90,9 +90,7 @@ namespace HttpDownloaderApp
                 state.ResponseContent.Append(Encoding.ASCII.GetString(state.Buffer, 0, bytesRead));
 
                 if (!IsHeaderComplete(state.ResponseContent.ToString()))
-                {
                     socket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
-                }
                 else
                 {
                     int headerLength = state.ResponseContent.ToString().IndexOf("\r\n\r\n") + 4;

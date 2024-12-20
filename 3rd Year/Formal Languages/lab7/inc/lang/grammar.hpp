@@ -113,6 +113,11 @@ public:
         return true;
     }
 
+    const std::map<std::string, std::vector<std::vector<std::string>>>& getProductions() const
+    {
+        return productions;
+    }
+
 private:
     std::set<std::string> nonterminals;
     std::set<std::string> terminals;

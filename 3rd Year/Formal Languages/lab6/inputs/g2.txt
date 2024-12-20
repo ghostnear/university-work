@@ -1,0 +1,8 @@
+S -> if E then S else S
+S -> while E do S
+S -> id = E
+E -> E + E
+E -> E * E
+E -> ( E )
+E -> id
+E -> num

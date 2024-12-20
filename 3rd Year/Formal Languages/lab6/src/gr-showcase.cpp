@@ -4,6 +4,7 @@ int gr_showcase()
 {
     while(true)
     {
+        std::cout << "\n3. Parse both grammars.";
         std::cout << "\n2. Inspect first grammar.";
         std::cout << "\n1. Inspect second grammar.";
         std::cout << "\n0. Exit app.\n";
@@ -15,6 +16,19 @@ int gr_showcase()
         std::cin >> command;
         switch(command)
         {
+        case 3:
+            {
+                std::cout << "\nParsing first grammar...\n";
+                LR0Parser parser(first_grammar.getProductions());
+                auto states = parser.canonicalCollection();
+                parser.printStates(states);
+
+                std::cout << "\nParsing second grammar...\n";
+                LR0Parser parser2(second_grammar.getProductions());
+                auto states2 = parser2.canonicalCollection();
+                parser2.printStates(states2);
+                break;
+            }
         case 2:
             {
                 std::cout << "\nFirst grammar:\n";

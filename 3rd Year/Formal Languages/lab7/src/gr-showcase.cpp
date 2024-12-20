@@ -1,4 +1,7 @@
 #include "gr-showcase.hpp"
+#include "lang/lr0.hpp"
+#include "lang/grammar.hpp"
+#include "lang/parser_output.hpp"
 
 int gr_showcase()
 {
@@ -25,10 +28,15 @@ int gr_showcase()
                     std::cout << "First grammar is a Context-Free Grammar (CFG).\n";
                 else
                     std::cout << "First grammar is not a Context-Free Grammar (CFG).\n";
-                std::string nonterminal = "";
-                std::cout << "Enter non-terminal to print productions for: ";
-                std::cin >> nonterminal;
-                first_grammar.printProductionsForNonterminal(nonterminal);
+                std::cout << "Parser states:\n";
+                LR0Parser parser(first_grammar.getProductions());
+                parser.canonicalCollection();
+                parser.printStates();
+                std::string token;
+                std::cout << "Enter input string: ";
+                std::cin >> token;
+                ParserOutput output(parser);
+                output.generateAndPrintParsingTable(token);
             }
             break;
         case 1:
@@ -41,10 +49,14 @@ int gr_showcase()
                     std::cout << "Second grammar is a Context-Free Grammar (CFG).\n";
                 else
                     std::cout << "Second grammar is not a Context-Free Grammar (CFG).\n";
-                std::string nonterminal = "";
-                std::cout << "Enter non-terminal to print productions for: ";
-                std::cin >> nonterminal;
-                second_grammar.printProductionsForNonterminal(nonterminal);
+                LR0Parser parser(second_grammar.getProductions());
+                parser.canonicalCollection();
+                parser.printStates();
+                std::string token;
+                std::cout << "Enter input string: ";
+                std::cin >> token;
+                ParserOutput output(parser);
+                output.generateAndPrintParsingTable(token);
             }
             break;
         case 0:

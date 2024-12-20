@@ -1,0 +1,16 @@
+function max(a, b, c) {
+    local max = a
+    if b > max {
+        max = b
+    }
+    if c > max {
+        max = c
+    }
+    return max
+}
+
+print(max(1, 3, 2))
+
+-- This is basically Lua with parantheses.
+-- Reserved words for now: local, function, main, return, if
+-- Separators: whitespaces, (, ), {, }, reserved words

@@ -22,7 +22,7 @@ local function calculatePhysics(index, object, objects, dt)
 
     object.x = object.x + object.vx * dt
     object.y = object.y + object.vy * dt
-    
+
     return object
 end
 

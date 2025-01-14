@@ -13,16 +13,16 @@ SECONDS_PER_DAY = 60 * 60 * 24
 DRAWING_MEASURING_UNIT = 4e8                        -- Only distances are scaled using this.
 SECONDS_PER_FRAME = SECONDS_PER_DAY * 14
 
-THREAD_COUNT = 24                                   -- Constraint: THREAD_COUNT <= #Objects otherwise everything goes boom.
+THREAD_COUNT = 24                                   -- Constraint: THREAD_COUNT <= #Objects / 2 otherwise everything goes boom.
 
 MAX_ZOOM = 2
 MIN_ZOOM = 0.5
 
-ASTEROID_COUNT = 701
+ASTEROID_COUNT = 606
 ASTEROID_MAX_SIZE = 2
 ASTEROID_MIN_SIZE = 0.66
-ASTEROID_MAX_MASS = 5e22
-ASTEROID_MIN_MASS = 1e22
+ASTEROID_MAX_MASS = 5e20
+ASTEROID_MIN_MASS = 1e20
 ASTEROID_MIN_X = -5e11
 ASTEROID_MAX_X = 5e11
 ASTEROID_MIN_Y = -5e11

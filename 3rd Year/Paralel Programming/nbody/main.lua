@@ -60,7 +60,7 @@ function love.update(dt)
         diffMouse.x = love.mouse.getX()
         diffMouse.y = love.mouse.getY()
     end
-    
+
     -- Update all threads like so:
     -- Object 1, 2, ..., THREAD_COUNT are assigneg to threads 1, 2, ..., THREAD_COUNT and so on. Not ideal.
     local threadIndex = 1
